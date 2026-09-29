@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeon Stewart | Azure Static Website Proof of Concept</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #0078d4, #00bcf2, #00182b, #004b87);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #333;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body { animation: none; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: min(360px, 85vw);
+        }
+
+        h1 { color: #0078d4; margin: 0 0 8px; }
+
+        .subtitle { color: #555; font-weight: 600; margin: 0 0 16px; }
+
+        .note { font-size: 0.9em; color: #666; }
+
+        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+
+        .btn {
+            display: block;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            background-color: #0078d4;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn:hover,
+        .btn:focus-visible {
+            background-color: #005a9e;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Hello from the Cloud ☁️</h1>
+        <p class="subtitle">Built and deployed by Zeon Stewart</p>
+        <p class="note">This page is served straight from Azure Blob Storage. There is no web server to manage.</p>
+        <!-- <p style="font-size:0.8em;color:#888;">Deployed automatically via GitHub Actions</p> -->
+
+        <hr>
+
+        <a class="btn" href="https://github.com/zsociety47" target="_blank" rel="noopener">GitHub Profile</a>
+        <a class="btn" href="LINKEDIN_LINK_HERE" target="_blank" rel="noopener">LinkedIn Profile</a>
+        <a class="btn" href="https://github.com/zsociety47/cloud-projects" target="_blank" rel="noopener">All Cloud Projects</a>
+        <a class="btn" href="Zeon_Stewart_Resume.pdf" target="_blank" rel="noopener">View Résumé</a>
+    </main>
+</body>
+</html>
