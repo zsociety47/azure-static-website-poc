@@ -37,8 +37,8 @@ flowchart LR
 
     subgraph sub["Azure subscription"]
         entra["Entra ID<br/>federated credential"]
-        subgraph rg["rg-staticweb-poc-SUFFIX"]
-            subgraph st["ststaticwebpocSUFFIX · Storage Account"]
+        subgraph rg["rg-staticweb-poc-zeon01"]
+            subgraph st["ststaticwebpoczeon01 · Storage Account"]
                 web["$web container<br/>index.html · 404.html"]
             end
         end
