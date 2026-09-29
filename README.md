@@ -76,6 +76,8 @@ flowchart LR
 ├── site/
 │   ├── index.html          Home page
 │   └── 404.html            Custom "page not found" page
+├── docs/
+│   └── manual-setup.md     The same build done by hand in the Azure portal
 ├── scripts/
 │   ├── deploy.sh           Creates the resource group and storage account, enables hosting, uploads site/
 │   ├── setup-oidc.sh       Creates the identity GitHub Actions signs in as, and its permissions
@@ -88,11 +90,15 @@ flowchart LR
 
 ---
 
-## Manual setup in the Azure portal
+## Build it yourself
 
-*Coming soon: a click-by-click guide to building the same thing by hand in the Azure portal, with each step matched to the script line that automates it.*
+There are two ways to build this. Start with the manual way to see what each piece is, then use the scripts to do the same thing in a repeatable way.
 
-## How to deploy it yourself
+### Option 1: Manual setup in the Azure portal
+
+Follow the click-by-click **[manual setup guide](docs/manual-setup.md)**. It builds the site in the Azure portal, then connects GitHub Actions, and each step names the script line that automates it.
+
+### Option 2: Automated setup with scripts
 
 **Prerequisites:** an Azure subscription where you are Owner (or Contributor plus User Access Administrator), the Azure command-line interface (CLI) signed in with `az login`, and the GitHub CLI (`gh`) signed in with `gh auth login`.
 
@@ -122,6 +128,8 @@ gh variable set SITE_URL --body <live-site-address>
 
 **4. Push to `main`.** The workflow uploads `site/` and the live site updates within a minute.
 
+**5. When you're done, tear it down.** See [Teardown](#teardown).
+
 ---
 
 ## Security choices
@@ -145,11 +153,15 @@ The storage account uses locally redundant storage (LRS): three copies of the da
 
 ## Teardown
 
+If you build your own copy, tear it down when you're finished with it:
+
 ```bash
 ./scripts/teardown.sh <suffix>
 ```
 
-Deletes the resource group (storage account and site) and the app registration GitHub signed in as. The live site link stops working immediately.
+This deletes the resource group (storage account and site) and the app registration GitHub signed in as, and your site's link stops working straight away. If you built it by hand, follow the clean-up steps at the end of the [manual setup guide](docs/manual-setup.md#clean-up-when-youre-done).
+
+The live site linked at the top of this page is kept running on purpose as a working demo.
 
 ---
 
