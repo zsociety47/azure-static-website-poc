@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
 # Lets GitHub Actions deploy to the storage account using OpenID Connect,
-# with no stored passwords or keys. Safe to re-run.
+# with no stored passwords or keys, then offers to save the values the
+# workflow needs in the GitHub repository. Safe to re-run.
 #
 # Usage: ./scripts/setup-oidc.sh <github-owner>/<repo> <storage-account-name> [environment]
 #   environment  GitHub environment the workflow deploys to, defaults to production
@@ -87,14 +88,45 @@ else
     --output none
 fi
 
+TENANT_ID="$(az account show --query tenantId --output tsv)"
+SUBSCRIPTION_ID="$(az account show --query id --output tsv)"
+SITE_URL="$(az storage account show --ids "$STORAGE_ID" --query primaryEndpoints.web --output tsv)"
+
 echo
-echo "Done. Save these in GitHub (Settings > Secrets and variables > Actions):"
+echo "==> Saving values in GitHub repository $REPO"
+SAVED_TO_GITHUB=false
+if command -v gh >/dev/null && gh auth status >/dev/null 2>&1; then
+  read -r -p "    Save the secrets and variables in $REPO now? [Y/n] " ANSWER || ANSWER=n
+  if [[ ! "$ANSWER" =~ ^[Nn] ]]; then
+    printf '%s' "$APP_ID"          | gh secret set AZURE_CLIENT_ID --repo "$REPO"
+    printf '%s' "$TENANT_ID"       | gh secret set AZURE_TENANT_ID --repo "$REPO"
+    printf '%s' "$SUBSCRIPTION_ID" | gh secret set AZURE_SUBSCRIPTION_ID --repo "$REPO"
+    gh variable set STORAGE_ACCOUNT_NAME --repo "$REPO" --body "$STORAGE_ACCOUNT"
+    gh variable set SITE_URL --repo "$REPO" --body "$SITE_URL"
+    SAVED_TO_GITHUB=true
+  fi
+else
+  echo "    GitHub CLI (gh) is not installed or not signed in; skipping."
+fi
+
 echo
-echo "  Secrets:"
-echo "    AZURE_CLIENT_ID        $APP_ID"
-echo "    AZURE_TENANT_ID        $(az account show --query tenantId --output tsv)"
-echo "    AZURE_SUBSCRIPTION_ID  $(az account show --query id --output tsv)"
-echo "  Variable:"
-echo "    STORAGE_ACCOUNT_NAME   $STORAGE_ACCOUNT"
+if [[ "$SAVED_TO_GITHUB" == true ]]; then
+  echo "Done. Saved in GitHub (values are not shown):"
+  echo "  Secrets:   AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID"
+  echo "  Variables: STORAGE_ACCOUNT_NAME=$STORAGE_ACCOUNT, SITE_URL=$SITE_URL"
+else
+  echo "Done. Add these at https://github.com/$REPO/settings/secrets/actions"
+  echo
+  echo "  Secrets tab:"
+  echo "    AZURE_CLIENT_ID        $APP_ID"
+  echo "    AZURE_TENANT_ID        $TENANT_ID"
+  echo "    AZURE_SUBSCRIPTION_ID  $SUBSCRIPTION_ID"
+  echo "  Variables tab:"
+  echo "    STORAGE_ACCOUNT_NAME   $STORAGE_ACCOUNT"
+  echo "    SITE_URL               $SITE_URL"
+fi
+echo
+echo "See the app registration in the Azure portal:"
+echo "  https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/$APP_ID"
 echo
 echo "New role assignments can take a few minutes to take effect."

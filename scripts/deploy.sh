@@ -64,15 +64,7 @@ else
     --output none
 fi
 
-echo "==> Enabling static website hosting"
-az storage blob service-properties update \
-  --account-name "$STORAGE_ACCOUNT" \
-  --auth-mode login \
-  --static-website \
-  --index-document index.html \
-  --404-document 404.html \
-  --output none
-
+# Granted before the static website step so the role has longer to take effect before the upload.
 echo "==> Granting you Storage Blob Data Contributor on this storage account"
 STORAGE_ID="$(az storage account show --name "$STORAGE_ACCOUNT" --resource-group "$RESOURCE_GROUP" --query id --output tsv)"
 MY_ID="$(az ad signed-in-user show --query id --output tsv)"
@@ -87,26 +79,40 @@ else
     --output none
 fi
 
-# New role assignments can take a few minutes to reach the storage service.
+echo "==> Enabling static website hosting"
+az storage blob service-properties update \
+  --account-name "$STORAGE_ACCOUNT" \
+  --auth-mode login \
+  --static-website \
+  --index-document index.html \
+  --404-document 404.html \
+  --output none
+
+# New role assignments can take up to about 10 minutes to reach the storage service.
 echo "==> Uploading site files"
-for attempt in 1 2 3 4 5 6 7 8 9 10; do
-  if az storage blob upload-batch \
-      --account-name "$STORAGE_ACCOUNT" \
-      --auth-mode login \
-      --destination '$web' \
-      --source "$SITE_DIR" \
-      --overwrite \
-      --only-show-errors \
-      --output none; then
-    break
-  fi
-  if [[ "$attempt" == 10 ]]; then
-    echo "Upload still failing after 10 attempts. Wait a few minutes and re-run this script." >&2
+WAITED=0
+until UPLOAD_ERROR="$(az storage blob upload-batch \
+    --account-name "$STORAGE_ACCOUNT" \
+    --auth-mode login \
+    --destination '$web' \
+    --source "$SITE_DIR" \
+    --overwrite \
+    --only-show-errors \
+    --output none 2>&1)"; do
+  if [[ "$UPLOAD_ERROR" != *"required permissions"* ]]; then
+    echo "$UPLOAD_ERROR" >&2
     exit 1
   fi
-  echo "    Role not active yet (attempt $attempt of 10). Retrying in 30 seconds..."
-  sleep 30
+  if (( WAITED >= 600 )); then
+    echo "$UPLOAD_ERROR" >&2
+    echo "Your role still isn't active after 10 minutes. Wait a few minutes and re-run this script." >&2
+    exit 1
+  fi
+  printf '    Waiting for your new role to take effect... (%dm %02ds)\n' $((WAITED / 60)) $((WAITED % 60))
+  sleep 15
+  WAITED=$((WAITED + 15))
 done
+echo "    Uploaded."
 
 WEB_URL="$(az storage account show --name "$STORAGE_ACCOUNT" --resource-group "$RESOURCE_GROUP" --query primaryEndpoints.web --output tsv)"
 

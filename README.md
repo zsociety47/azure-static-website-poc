@@ -9,7 +9,7 @@
 - **What it is:** a website that runs directly from Microsoft Azure's file storage, with no server to rent, patch, or keep running.
 - **What's automated:** every time I save a change to GitHub, the live site updates itself in under a minute.
 - **Why it's secure:** GitHub proves who it is to Azure on every update, so there are no passwords or keys that could leak.
-- **Result:** every goal was met. The last one, automated cleanup, runs after the walkthrough is recorded.
+- **Result:** every goal was met, including building and deleting the whole setup with scripts.
 
 Part of [Cloud Projects](https://github.com/zsociety47/cloud-projects). Technical details and lessons learned are in [Technical findings](#technical-findings) at the bottom.
 
@@ -28,7 +28,7 @@ A static website can be hosted on Azure Storage with no web server to manage, an
 | 3 | A push to `main` updates the live site with no manual steps | Uncomment the "Deployed automatically" line, push, refresh | ✅ |
 | 4 | No passwords, keys, or connection strings are stored in GitHub or the repository | Review repository secrets and workflow | ✅ |
 | 5 | The deploy identity can only write to this one storage account | Review its role assignments in Azure | ✅ |
-| 6 | The whole environment is created and removed by scripts | Run `deploy.sh`, `setup-oidc.sh`, and `teardown.sh` | ✅ created · ⏳ teardown pending |
+| 6 | The whole environment is created and removed by scripts | Run `deploy.sh`, `setup-oidc.sh`, and `teardown.sh` | ✅ |
 
 ---
 
@@ -116,19 +116,13 @@ The script prints the live site address and the storage account name.
 ./scripts/setup-oidc.sh <github-owner>/<repo> <storage-account-name>
 ```
 
-**3. Save the printed values in GitHub**
+The script creates the identity GitHub signs in as, then asks whether to save the values the workflow needs in your repository: three secrets (`AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`) and two variables (`STORAGE_ACCOUNT_NAME`, `SITE_URL`). Answer **Y** and it saves them for you without showing the secret values. Answer **n**, or run it without the GitHub CLI signed in, and it prints the values with a link to the GitHub settings page to paste them into by hand.
 
-```bash
-gh secret set AZURE_CLIENT_ID          # paste each value when prompted
-gh secret set AZURE_TENANT_ID
-gh secret set AZURE_SUBSCRIPTION_ID
-gh variable set STORAGE_ACCOUNT_NAME --body <storage-account-name>
-gh variable set SITE_URL --body <live-site-address>
-```
+Run it again after every rebuild: each new app registration has a new client ID.
 
-**4. Push to `main`.** The workflow uploads `site/` and the live site updates within a minute.
+**3. Push to `main`.** The workflow uploads `site/` and the live site updates within a minute.
 
-**5. When you're done, tear it down.** See [Teardown](#teardown).
+**4. When you're done, tear it down.** See [Teardown](#teardown).
 
 ---
 
@@ -170,7 +164,7 @@ The live site linked at the top of this page is kept running on purpose as a wor
 *For engineers: what actually happened while building this, including the errors.*
 
 - **GitHub's OpenID Connect subject format has changed, and most guides haven't caught up.** The first real deploy failed with `AADSTS700213: No matching federated identity record found`. New GitHub repositories now include permanent owner and repository IDs in the token subject (`repo:zsociety47@122703085/azure-static-website-poc@1396638213:environment:production`), but the federated credential used the older name-only format (`repo:zsociety47/azure-static-website-poc:environment:production`) that most tutorials still show. The workflow log printed the subject GitHub actually sent, which made the mismatch easy to spot. `setup-oidc.sh` now asks GitHub for the exact subject, so it works with both formats.
-- **New role assignments are not instant.** The first upload in `deploy.sh` was refused with "You do not have the required permissions" seconds after the Storage Blob Data Contributor role was granted, then succeeded on retry 30 seconds later. Automation that grants a role and uses it straight away needs a retry. The error message also suggested switching to `--auth-mode key`, which would have worked but defeated the point of the project.
+- **New role assignments are not instant, and the delay varies.** The first upload in `deploy.sh` was refused with "You do not have the required permissions" seconds after the Storage Blob Data Contributor role was granted. It succeeded after 30 seconds on the first build and after a few minutes on a rebuild. `deploy.sh` now grants the role before enabling static website hosting, so the wait overlaps with other work, then checks every 15 seconds for up to 10 minutes with a short progress message. The error message also suggested switching to `--auth-mode key`, which would have worked but defeated the point of the project.
 - **Being Owner of the subscription is not the same as being able to write files.** Owner covers management actions such as creating the storage account and turning on static website hosting, but uploading blobs with your own identity needs a separate data role. Keeping those two kinds of permission apart is what lets the GitHub identity hold only a data role on one storage account, with no power to change or delete anything else.
 - **The pipeline fails closed.** The very first push ran before any Azure credentials existed in GitHub. The workflow stopped at the sign-in step and never reached the upload, so a missing or broken identity can't lead to a partial or unauthorized deploy.
 - **`az storage blob upload-batch` only adds and overwrites files.** Deleting a page from `site/` leaves the old copy live on Azure. A future version could use `az storage blob sync` with `--delete-destination true` to mirror the folder exactly.
