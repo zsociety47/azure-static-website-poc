@@ -81,7 +81,9 @@ flowchart LR
 ├── scripts/
 │   ├── deploy.sh           Creates the resource group and storage account, enables hosting, uploads site/
 │   ├── setup-oidc.sh       Creates the identity GitHub Actions signs in as, and its permissions
-│   └── teardown.sh         Deletes everything the two scripts above created
+│   ├── teardown.sh         Deletes everything the two scripts above created
+│   └── lib/
+│       └── github-values.sh  Shared checks for the GitHub secrets and variables
 └── .github/
     ├── workflows/
     │   └── deploy.yml      Continuous integration and continuous deployment (CI/CD) pipeline
@@ -116,7 +118,7 @@ The script prints the live site address and the storage account name.
 ./scripts/setup-oidc.sh <github-owner>/<repo> <storage-account-name>
 ```
 
-The script creates the identity GitHub signs in as, then asks whether to save the values the workflow needs in your repository: three secrets (`AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`) and two variables (`STORAGE_ACCOUNT_NAME`, `SITE_URL`). Answer **Y** and it saves them for you without showing the secret values. Answer **n**, or run it without the GitHub CLI signed in, and it prints the values with a link to the GitHub settings page to paste them into by hand.
+The script removes any existing values from the repository first, creates the identity GitHub signs in as, then asks whether to save the values the workflow needs in your repository: three secrets (`AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`) and two variables (`STORAGE_ACCOUNT_NAME`, `SITE_URL`). Answer **Y** and it saves them for you without showing the secret values. Answer **n**, or run it without the GitHub CLI signed in, and it prints the values with a link to the GitHub settings page to paste them into by hand.
 
 Run it again after every rebuild: each new app registration has a new client ID.
 
@@ -150,10 +152,10 @@ The storage account uses locally redundant storage (LRS): three copies of the da
 If you build your own copy, tear it down when you're finished with it:
 
 ```bash
-./scripts/teardown.sh <suffix>
+./scripts/teardown.sh <suffix> <github-owner>/<repo>
 ```
 
-This deletes the resource group (storage account and site) and the app registration GitHub signed in as, and your site's link stops working straight away. If you built it by hand, follow the clean-up steps at the end of the [manual setup guide](docs/manual-setup.md#clean-up-when-youre-done).
+This deletes the resource group (storage account and site), the app registration GitHub signed in as, and the secrets and variables `setup-oidc.sh` saved in your repository. Your site's link stops working straight away. Run it from inside your clone and you can leave off `<github-owner>/<repo>`. If you built it by hand, follow the clean-up steps at the end of the [manual setup guide](docs/manual-setup.md#clean-up-when-youre-done).
 
 The live site linked at the top of this page is kept running on purpose as a working demo.
 

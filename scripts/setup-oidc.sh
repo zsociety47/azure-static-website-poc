@@ -42,6 +42,11 @@ if [[ -z "$STORAGE_ID" ]]; then
   exit 1
 fi
 
+# shellcheck source=lib/github-values.sh
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib/github-values.sh"
+echo "==> Removing existing GitHub secrets and variables from $REPO"
+clear_github_values_before_setup "$REPO"
+
 echo "==> Creating app registration $APP_NAME"
 APP_ID="$(az ad app list --display-name "$APP_NAME" --query "[0].appId" --output tsv)"
 if [[ -n "$APP_ID" ]]; then
@@ -95,7 +100,7 @@ SITE_URL="$(az storage account show --ids "$STORAGE_ID" --query primaryEndpoints
 echo
 echo "==> Saving values in GitHub repository $REPO"
 SAVED_TO_GITHUB=false
-if command -v gh >/dev/null && gh auth status >/dev/null 2>&1; then
+if gh_ready; then
   read -r -p "    Save the secrets and variables in $REPO now? [Y/n] " ANSWER || ANSWER=n
   if [[ ! "$ANSWER" =~ ^[Nn] ]]; then
     printf '%s' "$APP_ID"          | gh secret set AZURE_CLIENT_ID --repo "$REPO"

@@ -139,5 +139,6 @@ A storage account this size costs cents per month, but delete it when you no lon
 
 1. **Resource group:** open **Resource groups > rg-staticweb-poc-`<suffix>` > Delete resource group**, type the name to confirm, and select **Delete**. This removes the storage account and the site.
 2. **App registration (only if you did Part B by hand):** open **Microsoft Entra ID > App registrations > github-actions-`<repo-name>` > Delete**. This also removes its service principal and federated credential.
+3. **GitHub values (only if you did step 10):** in the repository, open **Settings > Secrets and variables > Actions** and delete the three secrets on the **Secrets** tab and the two variables on the **Variables** tab.
 
-If you built everything with the scripts instead, `./scripts/teardown.sh <suffix>` does both steps.
+If you built everything with the scripts instead, `./scripts/teardown.sh <suffix> <github-owner>/<repo>` does all three steps.
