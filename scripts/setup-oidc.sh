@@ -20,13 +20,20 @@ fi
 
 APP_NAME="github-actions-${REPO##*/}"
 CREDENTIAL_NAME="github-${ENVIRONMENT}"
-# GitHub builds this subject into every token; Azure matches it exactly, including letter case.
-SUBJECT="repo:${REPO}:environment:${ENVIRONMENT}"
 
 if ! az account show --output none 2>/dev/null; then
   echo "You are not signed in to Azure. Run 'az login' first." >&2
   exit 1
 fi
+
+# Newer repositories put owner and repository IDs in the subject
+# (repo:owner@123/name@456), so ask GitHub instead of building it by hand.
+# Azure matches the subject exactly, including letter case.
+SUBJECT_PREFIX="$(gh api "repos/$REPO/actions/oidc/customization/sub" --jq '.sub_claim_prefix // empty' 2>/dev/null || true)"
+if [[ -z "$SUBJECT_PREFIX" ]]; then
+  SUBJECT_PREFIX="repo:$REPO"
+fi
+SUBJECT="${SUBJECT_PREFIX}:environment:${ENVIRONMENT}"
 
 STORAGE_ID="$(az storage account list --query "[?name=='$STORAGE_ACCOUNT'].id | [0]" --output tsv)"
 if [[ -z "$STORAGE_ID" ]]; then
@@ -51,19 +58,21 @@ fi
 SP_ID="$(az ad sp show --id "$APP_ID" --query id --output tsv)"
 
 echo "==> Adding federated credential for $SUBJECT"
-if [[ "$(az ad app federated-credential list --id "$APP_ID" --query "length([?name=='$CREDENTIAL_NAME'])" --output tsv)" != "0" ]]; then
-  echo "    Already exists, reusing it."
+CREDENTIAL_JSON="{
+  \"name\": \"$CREDENTIAL_NAME\",
+  \"issuer\": \"https://token.actions.githubusercontent.com\",
+  \"subject\": \"$SUBJECT\",
+  \"audiences\": [\"api://AzureADTokenExchange\"],
+  \"description\": \"GitHub Actions deploys from $REPO to the $ENVIRONMENT environment\"
+}"
+EXISTING_SUBJECT="$(az ad app federated-credential list --id "$APP_ID" --query "[?name=='$CREDENTIAL_NAME'].subject | [0]" --output tsv)"
+if [[ -z "$EXISTING_SUBJECT" ]]; then
+  az ad app federated-credential create --id "$APP_ID" --parameters "$CREDENTIAL_JSON" --output none
+elif [[ "$EXISTING_SUBJECT" != "$SUBJECT" ]]; then
+  echo "    Exists with subject $EXISTING_SUBJECT, updating it."
+  az ad app federated-credential update --id "$APP_ID" --federated-credential-id "$CREDENTIAL_NAME" --parameters "$CREDENTIAL_JSON" --output none
 else
-  az ad app federated-credential create \
-    --id "$APP_ID" \
-    --parameters "{
-      \"name\": \"$CREDENTIAL_NAME\",
-      \"issuer\": \"https://token.actions.githubusercontent.com\",
-      \"subject\": \"$SUBJECT\",
-      \"audiences\": [\"api://AzureADTokenExchange\"],
-      \"description\": \"GitHub Actions deploys from $REPO to the $ENVIRONMENT environment\"
-    }" \
-    --output none
+  echo "    Already exists, reusing it."
 fi
 
 echo "==> Granting Storage Blob Data Contributor on $STORAGE_ACCOUNT"

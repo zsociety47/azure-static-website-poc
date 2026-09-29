@@ -2,11 +2,16 @@
 
 [![Deploy static website](https://github.com/zsociety47/azure-static-website-poc/actions/workflows/deploy.yml/badge.svg)](https://github.com/zsociety47/azure-static-website-poc/actions/workflows/deploy.yml)
 
-**Live site:** LIVE_SITE_LINK_HERE · **Walkthrough:** [Loom](LOOM_LINK_HERE) · **Author:** Zeon Stewart, [LinkedIn](LINKEDIN_LINK_HERE)
+**Live site:** [ststaticwebpoczeon01.z13.web.core.windows.net](https://ststaticwebpoczeon01.z13.web.core.windows.net/) · **Walkthrough:** [Loom](LOOM_LINK_HERE) · **Author:** Zeon Stewart, [LinkedIn](LINKEDIN_LINK_HERE)
 
-A serverless static website hosted on Azure Blob Storage, deployed automatically by GitHub Actions on every push to `main`. GitHub signs in to Azure with OpenID Connect (OIDC), so no passwords, keys, or connection strings are stored anywhere.
+## At a glance
 
-Part of [Cloud Projects](https://github.com/zsociety47/cloud-projects).
+- **What it is:** a website that runs directly from Microsoft Azure's file storage, with no server to rent, patch, or keep running.
+- **What's automated:** every time I save a change to GitHub, the live site updates itself in under a minute.
+- **Why it's secure:** GitHub proves who it is to Azure on every update, so there are no passwords or keys that could leak.
+- **Result:** every goal was met. The last one, automated cleanup, runs after the walkthrough is recorded.
+
+Part of [Cloud Projects](https://github.com/zsociety47/cloud-projects). Technical details and lessons learned are in [Technical findings](#technical-findings) at the bottom.
 
 ---
 
@@ -18,12 +23,12 @@ A static website can be hosted on Azure Storage with no web server to manage, an
 
 | # | Criterion | How it is checked | Result |
 |---|-----------|-------------------|--------|
-| 1 | The site loads over Hypertext Transfer Protocol Secure (HTTPS) from the storage account's static website endpoint | Open the live site link | |
-| 2 | Missing pages return the custom 404 page | Visit `/does-not-exist` | |
-| 3 | A push to `main` updates the live site with no manual steps | Uncomment the "Deployed automatically" line, push, refresh | |
-| 4 | No passwords, keys, or connection strings are stored in GitHub or the repository | Review repository secrets and workflow | |
-| 5 | The deploy identity can only write to this one storage account | Review its role assignments in Azure | |
-| 6 | The whole environment is created and removed by scripts | Run `deploy.sh`, `setup-oidc.sh`, and `teardown.sh` | |
+| 1 | The site loads over Hypertext Transfer Protocol Secure (HTTPS) from the storage account's static website endpoint | Open the live site link | ✅ |
+| 2 | Missing pages return the custom 404 page | Visit `/does-not-exist` | ✅ |
+| 3 | A push to `main` updates the live site with no manual steps | Uncomment the "Deployed automatically" line, push, refresh | ✅ |
+| 4 | No passwords, keys, or connection strings are stored in GitHub or the repository | Review repository secrets and workflow | ✅ |
+| 5 | The deploy identity can only write to this one storage account | Review its role assignments in Azure | ✅ |
+| 6 | The whole environment is created and removed by scripts | Run `deploy.sh`, `setup-oidc.sh`, and `teardown.sh` | ✅ created · ⏳ teardown pending |
 
 ---
 
@@ -83,6 +88,10 @@ flowchart LR
 
 ---
 
+## Manual setup in the Azure portal
+
+*Coming soon: a click-by-click guide to building the same thing by hand in the Azure portal, with each step matched to the script line that automates it.*
+
 ## How to deploy it yourself
 
 **Prerequisites:** an Azure subscription where you are Owner (or Contributor plus User Access Administrator), the Azure command-line interface (CLI) signed in with `az login`, and the GitHub CLI (`gh`) signed in with `gh auth login`.
@@ -134,12 +143,6 @@ The storage account uses locally redundant storage (LRS): three copies of the da
 
 ---
 
-## Findings
-
-*To be written after the deployment is tested.*
-
----
-
 ## Teardown
 
 ```bash
@@ -147,3 +150,15 @@ The storage account uses locally redundant storage (LRS): three copies of the da
 ```
 
 Deletes the resource group (storage account and site) and the app registration GitHub signed in as. The live site link stops working immediately.
+
+---
+
+## Technical findings
+
+*For engineers: what actually happened while building this, including the errors.*
+
+- **GitHub's OpenID Connect subject format has changed, and most guides haven't caught up.** The first real deploy failed with `AADSTS700213: No matching federated identity record found`. New GitHub repositories now include permanent owner and repository IDs in the token subject (`repo:zsociety47@122703085/azure-static-website-poc@1396638213:environment:production`), but the federated credential used the older name-only format (`repo:zsociety47/azure-static-website-poc:environment:production`) that most tutorials still show. The workflow log printed the subject GitHub actually sent, which made the mismatch easy to spot. `setup-oidc.sh` now asks GitHub for the exact subject, so it works with both formats.
+- **New role assignments are not instant.** The first upload in `deploy.sh` was refused with "You do not have the required permissions" seconds after the Storage Blob Data Contributor role was granted, then succeeded on retry 30 seconds later. Automation that grants a role and uses it straight away needs a retry. The error message also suggested switching to `--auth-mode key`, which would have worked but defeated the point of the project.
+- **Being Owner of the subscription is not the same as being able to write files.** Owner covers management actions such as creating the storage account and turning on static website hosting, but uploading blobs with your own identity needs a separate data role. Keeping those two kinds of permission apart is what lets the GitHub identity hold only a data role on one storage account, with no power to change or delete anything else.
+- **The pipeline fails closed.** The very first push ran before any Azure credentials existed in GitHub. The workflow stopped at the sign-in step and never reached the upload, so a missing or broken identity can't lead to a partial or unauthorized deploy.
+- **`az storage blob upload-batch` only adds and overwrites files.** Deleting a page from `site/` leaves the old copy live on Azure. A future version could use `az storage blob sync` with `--delete-destination true` to mirror the folder exactly.
