@@ -40,7 +40,7 @@ Steps 1-6 host the site. Steps 7-11 connect GitHub Actions so every push deploys
 5. **Tags** tab: add `project = azure-static-website-poc`, `environment = poc`, `managed-by = portal`, and `owner = <your name>`.
 6. Select **Review + create**, then **Create**.
 
-<!-- ![Resource group review page with tags](docs/images/step-01-resource-group.png) -->
+![Resource group Overview with tags and the storage account](docs/images/step-01-resource-group.png)
 
 ### Step 2: Create a storage account
 
@@ -61,7 +61,7 @@ Steps 1-6 host the site. Steps 7-11 connect GitHub Actions so every push deploys
 4. **Tags** tab: the same four tags as the resource group.
 5. Select **Review + create**, then **Create**. Wait for "Your deployment is complete" and select **Go to resource**.
 
-<!-- ![Storage account Advanced tab with security settings](docs/images/step-02-storage-advanced.png) -->
+![Storage account Configuration: secure transfer on, anonymous access off, TLS 1.2](docs/images/step-02-storage-advanced.png)
 
 ### Step 3: Enable static website hosting
 
@@ -73,7 +73,7 @@ Steps 1-6 host the site. Steps 7-11 connect GitHub Actions so every push deploys
 4. **Error document path:** `404.html`
 5. Select **Save**. Copy the **Primary endpoint**; this is the site address. Azure also creates a container named `$web`.
 
-<!-- ![Static website enabled with the primary endpoint](docs/images/step-03-static-website.png) -->
+![Static website enabled with index.html, 404.html, and the primary endpoint](docs/images/step-03-static-website.png)
 
 ### Step 4: Give yourself permission to upload
 
@@ -89,7 +89,7 @@ Being Owner of the subscription does not let you read or write files with your o
 
 The role can take a few minutes to take effect. If the next step says you do not have permission, wait and try again.
 
-<!-- ![Role assignment for Storage Blob Data Contributor](docs/images/step-04-role-assignment.png) -->
+![Role assignments: Storage Blob Data Contributor for you and for the GitHub Actions app](docs/images/step-04-role-assignment.png)
 
 ### Step 5: Upload the site files
 
@@ -99,15 +99,15 @@ The role can take a few minutes to take effect. If the next step says you do not
 2. Near the top, check **Authentication method**. If it says **Access key**, select **Switch to Microsoft Entra user account**. This is the portal's version of `--auth-mode login`: it uses your role from step 4 instead of the account's master key.
 3. Select **Upload**, choose `site/index.html` and `site/404.html` from this repository, and select **Upload**.
 
-<!-- ![The $web container with index.html and 404.html](docs/images/step-05-upload.png) -->
+![The $web container with index.html and 404.html, using Microsoft Entra authentication](docs/images/step-05-upload.png)
 
 ### Step 6: Test the site
 
 1. Open the primary endpoint from step 3. The home page loads.
 2. Add `/does-not-exist` to the end of the address. The custom 404 page loads.
 
-<!-- ![The live home page](docs/images/step-06-live-site.png) -->
-<!-- ![The custom 404 page](docs/images/step-06-404.png) -->
+![The live home page](docs/images/step-06-live-site.png)
+![The custom 404 page](docs/images/step-06-404.png)
 
 ### Step 7: Register an app for GitHub Actions
 
@@ -121,7 +121,7 @@ If you already ran `setup-oidc.sh` for this repository, skip steps 7-10: you wou
 4. Select **Register**. The portal also creates the service principal (listed under **Enterprise applications**).
 5. From the **Overview** page, note the **Application (client) ID** and **Directory (tenant) ID**. Do not paste them anywhere public.
 
-<!-- ![App registration overview](docs/images/step-07-app-registration.png) -->
+![App registration Overview: name, no client secret, Microsoft Entra ID tenant](docs/images/step-07-app-registration.png)
 
 ### Step 8: Add the federated credential
 
@@ -140,7 +140,7 @@ If you already ran `setup-oidc.sh` for this repository, skip steps 7-10: you wou
 
 > The **GitHub Actions deploying Azure resources** scenario in the same list builds the older name-only subject (`repo:owner/name:environment:production`). Newer repositories no longer send that format, so sign-in fails with `AADSTS700213: No matching federated identity record found`. Using **Other issuer** with the exact subject avoids this.
 
-<!-- ![Federated credential with the exact subject](docs/images/step-08-federated-credential.png) -->
+![Federated credentials: github-production, zero client secrets](docs/images/step-08-federated-credential.png)
 
 ### Step 9: Grant the app access to the storage account only
 
@@ -151,7 +151,7 @@ If you already ran `setup-oidc.sh` for this repository, skip steps 7-10: you wou
 3. **Members:** select **+ Select members**, search for `github-actions-<repo-name>`, select it, then **Select**.
 4. Select **Review + assign** twice.
 
-<!-- ![Role assignment for the GitHub Actions app](docs/images/step-09-app-role.png) -->
+![Role assignments: the GitHub Actions app has Storage Blob Data Contributor on this storage account only](docs/images/step-09-app-role.png)
 
 ### Step 10: Save the values in GitHub
 
@@ -163,7 +163,8 @@ If you already ran `setup-oidc.sh` for this repository, skip steps 7-10: you wou
 
 GitHub never shows a secret's value again after you save it, only its name.
 
-<!-- ![Repository secrets, names only](docs/images/step-10-github-values.png) -->
+![Repository secrets, names only](docs/images/step-10-github-secrets.png)
+![Repository variables: storage account name and site URL](docs/images/step-10-github-variables.png)
 
 ### Step 11: Push a change and watch it deploy
 
@@ -190,7 +191,7 @@ If you built everything with the scripts, `./scripts/teardown.sh` does all three
 
 The live site linked at the top of this page is kept running on purpose as a working demo.
 
-<!-- ![Deleting the resource group](docs/images/step-12-delete-resource-group.png) -->
+![Delete resource group confirmation. Type the name, then Cancel unless you mean to tear it down.](docs/images/step-12-delete-resource-group.png)
 
 ---
 
