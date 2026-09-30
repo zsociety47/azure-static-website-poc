@@ -4,8 +4,9 @@
 
 ## 🎬 Watch Me Build This Lab!
 
-<!-- [![Watch the video](docs/images/loom-thumbnail.png)](LOOM_LINK_HERE) -->
-*Video walkthrough coming soon.*
+[![Watch the video](docs/images/loom-thumbnail.gif)](https://www.loom.com/share/56b36c39bfb84152828e7ee3ad1f6cc7)
+
+*The video shows an earlier layout of this page: the manual steps it follows are now the [Project Steps](#project-steps) below.*
 
 **Live site:** [ststaticwebpoczeon01.z13.web.core.windows.net](https://ststaticwebpoczeon01.z13.web.core.windows.net/) · **Author:** Zeon Stewart, [LinkedIn](LINKEDIN_LINK_HERE)
 
@@ -173,7 +174,9 @@ GitHub never shows a secret's value again after you save it, only its name.
 3. Open the repository's **Actions** tab. The **Deploy static website** run signs in to Azure and uploads `site/`, and turns green in under a minute.
 4. Hard-refresh the live site (Cmd+Shift+R on a Mac, Ctrl+Shift+R on Windows). The new line is there.
 
-<!-- ![A successful workflow run](docs/images/step-11-workflow-run.png) -->
+![A successful workflow run: sign in with OpenID Connect, then upload to the $web container](docs/images/step-11-workflow-run.jpg)
+
+![The live site showing the "Deployed automatically via GitHub Actions" line](docs/images/step-11-live-site.jpg)
 
 ### Step 12: Clean up when you're done
 
@@ -205,6 +208,8 @@ The same build as the Project Steps, in three commands.
 
 The script prints the live site address and the storage account name.
 
+![deploy.sh creating the resources and printing the live site address](docs/images/automated-deploy-script.jpg)
+
 **2. Let GitHub Actions sign in to Azure** (steps 7-10)
 
 ```bash
@@ -224,6 +229,8 @@ Run it again after every rebuild: each new app registration has a new client ID.
 ```
 
 This deletes the resource group (storage account and site), the app registration GitHub signed in as, and the secrets and variables `setup-oidc.sh` saved in your repository. Your site's link stops working straight away. Run it from inside your clone and you can leave off `<github-owner>/<repo>`.
+
+![setup-oidc.sh saving the GitHub values, then teardown.sh listing what it will delete and asking for confirmation](docs/images/automated-setup-oidc-and-teardown.jpg)
 
 ---
 
