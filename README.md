@@ -36,23 +36,25 @@ A static website can be hosted on Azure Storage with no web server to manage, an
 
 ```mermaid
 flowchart LR
-    user["User's browser"]
+    user["Visitor's browser"]
     dev["git push to main"]
     gha["GitHub Actions<br/>deploy.yml"]
 
-    subgraph sub["Azure subscription"]
-        entra["Entra ID<br/>federated credential"]
-        subgraph rg["rg-staticweb-poc-zeon01"]
-            subgraph st["ststaticwebpoczeon01 · Storage Account"]
-                web["$web container<br/>index.html · 404.html"]
+    subgraph tenant["Microsoft Entra ID tenant"]
+        entra["github-actions-azure-static-website-poc<br/>App registration · federated credential"]
+        subgraph sub["Azure subscription"]
+            subgraph rg["rg-staticweb-poc-zeon01"]
+                subgraph st["ststaticwebpoczeon01 · Storage Account"]
+                    web["$web container<br/>index.html · 404.html"]
+                end
             end
         end
     end
 
     user -- "HTTPS" --> web
-    dev -.-> gha
+    dev -. "starts workflow" .-> gha
     gha -. "OpenID Connect token" .-> entra
-    gha -. "blob upload" .-> web
+    gha -. "blob upload · data role only" .-> web
 
     classDef azure fill:#0078d4,stroke:#005a9e,color:#fff
     classDef external fill:#6e7681,stroke:#484f58,color:#fff
@@ -63,7 +65,13 @@ flowchart LR
     class entra identity
 ```
 
-*Visitors reach the site over HTTPS from the storage account's static website endpoint (solid line). Code changes reach the same container through GitHub Actions, which signs in with a short-lived OpenID Connect token instead of a stored password (dashed lines).*
+**How to read this diagram**
+
+- **Solid arrow:** how visitors reach the site.
+- **Dashed arrows:** how code gets there.
+- **Blue:** Azure resources. **Gray:** outside systems (visitors and GitHub). **Green:** identity, the part that replaces passwords.
+
+*GitHub Actions signs in with a short-lived OpenID Connect token instead of a stored password, and its only permission is to upload files to this one storage account.*
 
 *Diagram follows the [shared diagram standard](https://github.com/zsociety47/cloud-projects/blob/main/standards/DIAGRAM-STANDARD.md).*
 
