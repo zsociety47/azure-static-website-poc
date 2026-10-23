@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Update the tracker: scripts/mark-done.sh <id> [built|video|posts] [YYYY-MM-DD]
+# Update the tracker: scripts/mark-done.sh <id> [built|video|posts|doc] [YYYY-MM-DD]
 #   mark-done.sh az-labs-1                 -> built today
 #   mark-done.sh az-labs-1 video 2026-10-25
 #   mark-done.sh az-labs-1 posts
@@ -17,7 +17,7 @@ mode = "set"
 if args and args[0] in ("--skip", "--plan", "--current"):
     mode, args = args[0][2:], args[1:]
 if not args:
-    sys.exit("usage: mark-done.sh [--skip|--plan|--current] <id> [built|video|posts] [date]")
+    sys.exit("usage: mark-done.sh [--skip|--plan|--current] <id> [built|video|posts|doc] [date]")
 item_id, rest = args[0], args[1:]
 hit = [i for i in d["items"] if i["id"] == item_id]
 if not hit:
@@ -29,13 +29,13 @@ if mode == "current":
         i["current"] = (i["id"] == item_id)
     msg = f"{item_id}: in progress"
 elif mode in ("skip", "plan"):
-    part = rest[0] if rest else sys.exit("say video or posts")
-    if part not in ("video", "posts"):
-        sys.exit("only video or posts can be skipped or planned")
+    part = rest[0] if rest else sys.exit("say video, posts or doc")
+    if part not in ("video", "posts", "doc"):
+        sys.exit("only video, posts or doc can be skipped or planned")
     it[part] = "skip" if mode == "skip" else "planned"
     msg = f"{item_id}: {part} {it[part]}"
 else:
-    part = rest[0] if rest and rest[0] in ("built", "video", "posts") else "built"
+    part = rest[0] if rest and rest[0] in ("built", "video", "posts", "doc") else "built"
     date = rest[-1] if rest and rest[-1][:2] == "20" else today
     it[part] = date
     if part == "built":

@@ -1,11 +1,9 @@
 {
   "start": "2026-10-22",
   "baseline": 4,
-  "baselineNote": "Azure projects 1 to 4 were finished before tracking began. They are the first four of the 32 Azure labs: our seven projects (1 to 5, 6a, 6b) plus the 25 mentorship labs. GCP and AWS counts are provisional until each lab is mapped to the shared modules.",
+  "baselineNote": "Azure projects 1 to 4 were finished before tracking began. They are the first four of the 32 Azure labs: our seven projects (1 to 5, 6a, 6b) plus the 25 mentorship labs. GCP and AWS counts are provisional until each lab is mapped to the shared modules. An item counts as done on this page when its README and screenshots prove the build. Video, posts and the Google Doc lab guide show as badges.",
   "weights": {
-    "built": 80,
-    "video": 10,
-    "posts": 10
+    "built": 1
   },
   "tracks": {
     "az-labs": "Azure labs",
@@ -25,7 +23,8 @@
       "built": "2026-10-23",
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-projects-2",
@@ -35,7 +34,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": true
+      "current": true,
+      "doc": "planned"
     },
     {
       "id": "az-projects-3",
@@ -45,7 +45,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-1",
@@ -55,7 +56,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-2",
@@ -65,7 +67,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-3",
@@ -75,7 +78,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-4",
@@ -85,7 +89,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-5",
@@ -95,7 +100,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-6",
@@ -105,7 +111,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-7",
@@ -115,7 +122,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-8",
@@ -125,7 +133,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-9",
@@ -135,7 +144,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-10",
@@ -145,7 +155,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-11",
@@ -155,7 +166,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-12",
@@ -165,7 +177,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-13",
@@ -175,7 +188,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-14",
@@ -185,7 +199,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-15",
@@ -195,7 +210,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-16",
@@ -205,7 +221,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-17",
@@ -215,7 +232,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-18",
@@ -225,7 +243,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-19",
@@ -235,7 +254,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-20",
@@ -245,7 +265,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-21",
@@ -255,7 +276,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-22",
@@ -265,7 +287,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-23",
@@ -275,7 +298,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-24",
@@ -285,7 +309,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "az-labs-25",
@@ -295,7 +320,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-projects-1",
@@ -305,7 +331,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-projects-2",
@@ -315,7 +342,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-projects-3",
@@ -325,7 +353,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-projects-4",
@@ -335,7 +364,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-projects-5",
@@ -345,7 +375,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-projects-6",
@@ -355,7 +386,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-1",
@@ -365,7 +397,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-2",
@@ -375,7 +408,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-3",
@@ -385,7 +419,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-4",
@@ -395,7 +430,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-5",
@@ -405,7 +441,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-6",
@@ -415,7 +452,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-7",
@@ -425,7 +463,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-8",
@@ -435,7 +474,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-9",
@@ -445,7 +485,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-10",
@@ -455,7 +496,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-11",
@@ -465,7 +507,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-12",
@@ -475,7 +518,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-13",
@@ -485,7 +529,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-14",
@@ -495,7 +540,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-15",
@@ -505,7 +551,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-16",
@@ -515,7 +562,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-17",
@@ -525,7 +573,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-18",
@@ -535,7 +584,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-19",
@@ -545,7 +595,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-20",
@@ -555,7 +606,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-21",
@@ -565,7 +617,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-22",
@@ -575,7 +628,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-23",
@@ -585,7 +639,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-24",
@@ -595,7 +650,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "gcp-labs-25",
@@ -605,7 +661,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-projects-1",
@@ -615,7 +672,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-projects-2",
@@ -625,7 +683,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-projects-3",
@@ -635,7 +694,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-projects-4",
@@ -645,7 +705,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-projects-5",
@@ -655,7 +716,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-projects-6",
@@ -665,7 +727,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-1",
@@ -675,7 +738,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-2",
@@ -685,7 +749,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-3",
@@ -695,7 +760,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-4",
@@ -705,7 +771,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-5",
@@ -715,7 +782,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-6",
@@ -725,7 +793,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-7",
@@ -735,7 +804,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-8",
@@ -745,7 +815,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-9",
@@ -755,7 +826,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-10",
@@ -765,7 +837,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-11",
@@ -775,7 +848,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-12",
@@ -785,7 +859,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-13",
@@ -795,7 +870,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-14",
@@ -805,7 +881,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-15",
@@ -815,7 +892,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-16",
@@ -825,7 +903,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-17",
@@ -835,7 +914,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-18",
@@ -845,7 +925,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-19",
@@ -855,7 +936,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-20",
@@ -865,7 +947,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-21",
@@ -875,7 +958,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-22",
@@ -885,7 +969,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-23",
@@ -895,7 +980,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-24",
@@ -905,7 +991,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "aws-labs-25",
@@ -915,7 +1002,8 @@
       "built": null,
       "video": "skip",
       "posts": "skip",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "ticketing-0",
@@ -925,7 +1013,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "ticketing-1",
@@ -935,7 +1024,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "ticketing-2",
@@ -945,7 +1035,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     },
     {
       "id": "ticketing-3",
@@ -955,7 +1046,8 @@
       "built": null,
       "video": "planned",
       "posts": "planned",
-      "current": false
+      "current": false,
+      "doc": "planned"
     }
   ],
   "baselineByTrack": {

@@ -203,15 +203,14 @@
         function partDate(v) { return v && v !== 'planned' && v !== 'skip' ? parse(v) : null; }
 
         function render(data) {
-            var start = parse(data.start), now = today(), W = data.weights;
+            var start = parse(data.start), now = today();
             var items = data.items.map(function (i) {
-                var parts = [['built', i.built], ['video', i.video], ['posts', i.posts]].filter(function (p) { return p[1] !== 'skip'; });
-                var total = parts.reduce(function (s, p) { return s + W[p[0]]; }, 0);
-                var events = parts.map(function (p) { return { date: partDate(p[1]), value: W[p[0]] / total }; })
-                    .filter(function (e) { return e.date; });
+                var all = [i.built, i.video, i.posts, i.doc].filter(function (v) { return v !== 'skip'; });
+                var b = partDate(i.built);
                 return { id: i.id, track: i.track, name: i.name, planned: parse(i.planned), current: !!i.current,
-                         built: partDate(i.built), video: i.video, posts: i.posts, events: events,
-                         full: events.length === parts.length };
+                         built: b, video: i.video, posts: i.posts, doc: i.doc || 'planned',
+                         events: b ? [{ date: b, value: 1 }] : [],
+                         full: all.every(function (v) { return partDate(v); }) };
             });
             var baseByTrack = data.baselineByTrack || {};
             var base = data.baseline || 0;
@@ -229,7 +228,7 @@
             var weeks = Math.max((now - start) / (7 * DAY), 0);
 
             el('s-done').textContent = r1(done) + ' of ' + total;
-            el('s-done-sub').textContent = base + ' finished before tracking began. Built counts 80%, video 10%, posts 10%.';
+            el('s-done-sub').textContent = base + ' finished before tracking began. Counts when the README and screenshots prove the build. Fully complete (video, posts and guide too, not counting projects 1 to 4 until their guides exist): ' + items.filter(function (i) { return i.full; }).length + '.';
 
             var delta = done - planned;
             var dEl = el('s-delta');
@@ -343,6 +342,7 @@
             bs.appendChild(badge('Built', item.built ? 'x' : 'planned'));
             bs.appendChild(badge('Video', item.video));
             bs.appendChild(badge('Posts', item.posts));
+            bs.appendChild(badge('Guide', item.doc));
             n.appendChild(bs);
             var t = document.createElement('span'); t.className = 'tag ' + tagClass; t.textContent = tagText;
             li.appendChild(d); li.appendChild(n); li.appendChild(t);
@@ -360,7 +360,7 @@
                 up.appendChild(li(i, data.tracks[i.track], i.current ? 'In progress' : 'Planned', i.current ? 'now' : ''));
             });
             open.filter(function (i) { return i.built && !i.current; }).sort(function (a, b) { return a.built - b.built; }).forEach(function (i) {
-                up.appendChild(li(i, data.tracks[i.track], 'Needs video or posts', 'now', i.built));
+                up.appendChild(li(i, data.tracks[i.track], 'Needs video, posts or guide', 'now', i.built));
             });
             var built = items.filter(function (i) { return i.built; }).sort(function (a, b) { return b.built - a.built; }).slice(0, 5);
             if (!built.length) {
