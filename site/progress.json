@@ -1,7 +1,7 @@
 {
   "start": "2026-10-22",
   "baseline": 4,
-  "baselineNote": "Azure projects 1 to 4 were finished before tracking began. They are the first four of the 32 Azure labs: our seven projects (1 to 5, 6a, 6b) plus the 25 mentorship labs. GCP and AWS are planned at the same length as Azure (32 each) for now. Once labs are mapped to the shared modules the counts will drop, so the pace will look worse than it is until then. An item counts as done on this page when its README and screenshots prove the build. Video, posts and the Google Doc lab guide show as badges.",
+  "baselineNote": "Azure projects 1 to 4 were finished before tracking began. They are the first four of the 32 Azure labs: seven projects of my own (1 to 5, 6a, 6b) plus 25 labs. GCP and AWS are planned at the same length as Azure (32 each) for now. Once the labs are mapped to shared modules the counts will drop, so the pace will look worse than it is until then.",
   "weights": {
     "built": 1
   },
