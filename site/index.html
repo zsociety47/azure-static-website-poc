@@ -102,6 +102,10 @@
         .date { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.85rem; }
         .tag { font-size: 0.72rem; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 1px 8px; white-space: nowrap; }
         .tag.now { color: #fff; background: var(--blue); border-color: var(--blue); }
+        .badges { display: inline-flex; gap: 4px; margin-left: 8px; vertical-align: middle; }
+        .badge { font-size: 0.66rem; border-radius: 99px; padding: 0 7px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+        .badge.on { color: #fff; background: var(--good); border-color: var(--good); }
+        .badge.skip { text-decoration: line-through; opacity: 0.55; }
         .tag.done { color: var(--good); border-color: var(--good); }
 
         .buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
@@ -159,7 +163,7 @@
         <h2>This week and next</h2>
         <ul class="list" id="upcoming"></ul>
 
-        <h2>Recently finished</h2>
+        <h2>Recently built</h2>
         <ul class="list" id="recent"></ul>
 
         <hr>
@@ -188,50 +192,64 @@
             for (var k in attrs) e.setAttribute(k, attrs[k]);
             return e;
         }
+        function r1(n) { return (Math.round(n * 10) / 10).toString(); }
 
         fetch('progress.json', { cache: 'no-cache' })
             .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
             .then(render)
-            .catch(function () { el('error').style.display = 'block'; });
+            .catch(function (e) { if (window.console) console.error(e); el('error').style.display = 'block'; });
+
+        // A part (built, video, posts) is: a date (done), 'planned', or 'skip' (not counted).
+        function partDate(v) { return v && v !== 'planned' && v !== 'skip' ? parse(v) : null; }
 
         function render(data) {
-            var start = parse(data.start), now = today();
+            var start = parse(data.start), now = today(), W = data.weights;
             var items = data.items.map(function (i) {
-                return { id: i.id, track: i.track, name: i.name, planned: parse(i.planned), done: i.done ? parse(i.done) : null, current: !!i.current };
+                var parts = [['built', i.built], ['video', i.video], ['posts', i.posts]].filter(function (p) { return p[1] !== 'skip'; });
+                var total = parts.reduce(function (s, p) { return s + W[p[0]]; }, 0);
+                var events = parts.map(function (p) { return { date: partDate(p[1]), value: W[p[0]] / total }; })
+                    .filter(function (e) { return e.date; });
+                return { id: i.id, track: i.track, name: i.name, planned: parse(i.planned), current: !!i.current,
+                         built: partDate(i.built), video: i.video, posts: i.posts, events: events,
+                         full: events.length === parts.length };
             });
+            var baseByTrack = data.baselineByTrack || {};
             var base = data.baseline || 0;
             var total = base + items.length;
 
             function plannedBy(d) { return base + items.filter(function (i) { return i.planned <= d; }).length; }
-            function doneBy(d) { return base + items.filter(function (i) { return i.done && i.done <= d; }).length; }
+            function doneBy(d) {
+                return base + items.reduce(function (s, i) {
+                    return s + i.events.reduce(function (t, e) { return t + (e.date <= d ? e.value : 0); }, 0);
+                }, 0);
+            }
 
             var done = doneBy(now), planned = plannedBy(now);
             var finishedSince = done - base;
             var weeks = Math.max((now - start) / (7 * DAY), 0);
 
-            el('s-done').textContent = done + ' of ' + total;
-            el('s-done-sub').textContent = base + ' finished before tracking began';
+            el('s-done').textContent = r1(done) + ' of ' + total;
+            el('s-done-sub').textContent = base + ' finished before tracking began. Built counts 80%, video 10%, posts 10%.';
 
             var delta = done - planned;
             var dEl = el('s-delta');
-            dEl.textContent = delta === 0 ? 'On plan' : (delta > 0 ? '+' + delta + ' ahead' : Math.abs(delta) + ' behind');
+            dEl.textContent = Math.abs(delta) < 0.05 ? 'On plan' : (delta > 0 ? '+' + r1(delta) + ' ahead' : r1(Math.abs(delta)) + ' behind');
             dEl.className = 'value ' + (delta >= 0 ? 'ahead' : 'behind');
-            el('s-delta-sub').textContent = 'plan says ' + planned + ' by today';
+            el('s-delta-sub').textContent = 'plan says ' + r1(planned) + ' by today';
 
             if (weeks >= 1 && finishedSince > 0) {
                 var pace = finishedSince / weeks;
-                el('s-pace').textContent = pace.toFixed(1);
-                var remaining = total - done;
-                var fin = new Date(now.getTime() + (remaining / pace) * 7 * DAY);
+                el('s-pace').textContent = r1(pace);
+                var fin = new Date(now.getTime() + ((total - done) / pace) * 7 * DAY);
                 el('s-finish').textContent = fmtY(fin);
             } else {
                 el('s-pace').textContent = '–';
-                el('s-finish').textContent = 'After first month';
-                el('s-finish-sub').textContent = 'needs a few weeks of data';
+                el('s-finish').textContent = 'After first week';
+                el('s-finish-sub').textContent = 'needs a week of data';
             }
 
             drawChart(items, base, total, start, now, plannedBy, doneBy);
-            drawBars(data, items);
+            drawBars(data, items, baseByTrack);
             drawLists(data, items, now);
             el('updated').textContent = fmtY(parse(data.updated));
         }
@@ -261,10 +279,10 @@
                 m = new Date(Date.UTC(m.getUTCFullYear(), m.getUTCMonth() + 1, 1));
             }
 
-            function stepPath(events, finalDate, valueAt) {
+            function stepPath(dates, finalDate, valueAt) {
                 var d = 'M' + x(start) + ' ' + y(valueAt(start));
                 var prev = valueAt(start);
-                events.forEach(function (e) {
+                dates.forEach(function (e) {
                     d += ' L' + x(e) + ' ' + y(prev);
                     prev = valueAt(e);
                     d += ' L' + x(e) + ' ' + y(prev);
@@ -272,11 +290,13 @@
                 d += ' L' + x(finalDate) + ' ' + y(prev);
                 return d;
             }
-            var planEvents = items.map(function (i) { return i.planned; }).sort(function (a, b) { return a - b; });
-            svg.appendChild(svgEl('path', { d: stepPath(planEvents, end, plannedBy), fill: 'none', stroke: '#8a97a6', 'stroke-width': 2.5, 'stroke-dasharray': '6 5' }));
+            var planDates = items.map(function (i) { return i.planned; }).sort(function (a, b) { return a - b; });
+            svg.appendChild(svgEl('path', { d: stepPath(planDates, end, plannedBy), fill: 'none', stroke: '#8a97a6', 'stroke-width': 2.5, 'stroke-dasharray': '6 5' }));
 
-            var doneEvents = items.filter(function (i) { return i.done && i.done <= now; }).map(function (i) { return i.done; }).sort(function (a, b) { return a - b; });
-            svg.appendChild(svgEl('path', { d: stepPath(doneEvents, now, doneBy), fill: 'none', stroke: '#0078d4', 'stroke-width': 3 }));
+            var doneDates = [];
+            items.forEach(function (i) { i.events.forEach(function (e) { if (e.date <= now) doneDates.push(e.date); }); });
+            doneDates.sort(function (a, b) { return a - b; });
+            svg.appendChild(svgEl('path', { d: stepPath(doneDates, now, doneBy), fill: 'none', stroke: '#0078d4', 'stroke-width': 3 }));
 
             var tdx = x(now);
             svg.appendChild(svgEl('line', { x1: tdx, x2: tdx, y1: T, y2: H - B, stroke: '#0078d4', 'stroke-width': 1, 'stroke-dasharray': '2 3' }));
@@ -286,29 +306,44 @@
             svg.appendChild(svgEl('circle', { cx: tdx, cy: y(doneBy(now)), r: 5, fill: '#0078d4', stroke: '#fff', 'stroke-width': 2 }));
         }
 
-        function drawBars(data, items) {
+        function drawBars(data, items, baseByTrack) {
             var box = el('bars');
             Object.keys(data.tracks).forEach(function (key) {
                 var list = items.filter(function (i) { return i.track === key; });
-                var n = list.filter(function (i) { return i.done; }).length;
+                var b = baseByTrack[key] || 0;
+                var n = b + list.reduce(function (s, i) { return s + i.events.reduce(function (t, e) { return t + e.value; }, 0); }, 0);
+                var tot = b + list.length;
                 var row = document.createElement('div'); row.className = 'bar-row';
                 var name = document.createElement('div'); name.textContent = data.tracks[key];
                 var bar = document.createElement('div'); bar.className = 'bar';
                 bar.setAttribute('role', 'progressbar');
-                bar.setAttribute('aria-valuemin', 0); bar.setAttribute('aria-valuemax', list.length); bar.setAttribute('aria-valuenow', n);
+                bar.setAttribute('aria-valuemin', 0); bar.setAttribute('aria-valuemax', tot); bar.setAttribute('aria-valuenow', r1(n));
                 bar.setAttribute('aria-label', data.tracks[key] + ' progress');
-                var fill = document.createElement('div'); fill.className = 'bar-fill'; fill.style.width = (list.length ? n / list.length * 100 : 0) + '%';
+                var fill = document.createElement('div'); fill.className = 'bar-fill'; fill.style.width = (tot ? n / tot * 100 : 0) + '%';
                 bar.appendChild(fill);
-                var cnt = document.createElement('div'); cnt.className = 'bar-count'; cnt.textContent = n + ' / ' + list.length;
+                var cnt = document.createElement('div'); cnt.className = 'bar-count'; cnt.textContent = r1(n) + ' / ' + tot;
                 row.appendChild(name); row.appendChild(bar); row.appendChild(cnt);
                 box.appendChild(row);
             });
         }
 
-        function li(item, trackName, tagText, tagClass) {
+        function badge(label, v) {
+            var b = document.createElement('span');
+            b.className = 'badge' + (v === 'skip' ? ' skip' : (v && v !== 'planned' ? ' on' : ''));
+            b.textContent = label;
+            b.title = label + (v === 'skip' ? ': not planned' : (v && v !== 'planned' ? ': done' : ': planned'));
+            return b;
+        }
+
+        function li(item, trackName, tagText, tagClass, dateOf) {
             var li = document.createElement('li');
-            var d = document.createElement('span'); d.className = 'date'; d.textContent = fmt(item.done || item.planned);
+            var d = document.createElement('span'); d.className = 'date'; d.textContent = fmt(dateOf || item.planned);
             var n = document.createElement('span'); n.textContent = trackName + ': ' + item.name;
+            var bs = document.createElement('span'); bs.className = 'badges';
+            bs.appendChild(badge('Built', item.built ? 'x' : 'planned'));
+            bs.appendChild(badge('Video', item.video));
+            bs.appendChild(badge('Posts', item.posts));
+            n.appendChild(bs);
             var t = document.createElement('span'); t.className = 'tag ' + tagClass; t.textContent = tagText;
             li.appendChild(d); li.appendChild(n); li.appendChild(t);
             return li;
@@ -317,23 +352,24 @@
         function drawLists(data, items, now) {
             var up = el('upcoming'), rc = el('recent');
             var horizon = new Date(now.getTime() + 14 * DAY);
-            var upcoming = items.filter(function (i) { return !i.done && (i.current || i.planned <= horizon); })
+            var open = items.filter(function (i) { return !i.full; });
+            var upcoming = open.filter(function (i) { return i.current || (!i.built && i.planned <= horizon); })
                 .sort(function (a, b) { return a.planned - b.planned; }).slice(0, 6);
-            if (!upcoming.length) {
-                var next = items.filter(function (i) { return !i.done; }).sort(function (a, b) { return a.planned - b.planned; }).slice(0, 3);
-                upcoming = next;
-            }
+            if (!upcoming.length) upcoming = open.filter(function (i) { return !i.built; }).sort(function (a, b) { return a.planned - b.planned; }).slice(0, 3);
             upcoming.forEach(function (i) {
                 up.appendChild(li(i, data.tracks[i.track], i.current ? 'In progress' : 'Planned', i.current ? 'now' : ''));
             });
-            var finished = items.filter(function (i) { return i.done; }).sort(function (a, b) { return b.done - a.done; }).slice(0, 5);
-            if (!finished.length) {
+            open.filter(function (i) { return i.built && !i.current; }).sort(function (a, b) { return a.built - b.built; }).forEach(function (i) {
+                up.appendChild(li(i, data.tracks[i.track], 'Needs video or posts', 'now', i.built));
+            });
+            var built = items.filter(function (i) { return i.built; }).sort(function (a, b) { return b.built - a.built; }).slice(0, 5);
+            if (!built.length) {
                 var e = document.createElement('li');
                 e.style.gridTemplateColumns = '1fr';
                 e.textContent = 'Tracking started ' + fmtY(parse(data.start)) + '. ' + data.baselineNote;
                 rc.appendChild(e);
             }
-            finished.forEach(function (i) { rc.appendChild(li(i, data.tracks[i.track], 'Done', 'done')); });
+            built.forEach(function (i) { rc.appendChild(li(i, data.tracks[i.track], i.full ? 'Done' : 'Built', 'done', i.built)); });
         }
     })();
     </script>
