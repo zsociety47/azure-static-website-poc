@@ -1,7 +1,7 @@
 {
   "start": "2026-10-22",
   "baseline": 4,
-  "baselineNote": "Azure projects 1 to 4 were finished before tracking began. They are the first four of the 32 Azure labs: seven projects of my own (1 to 5, 6a, 6b) plus 25 labs. GCP and AWS are planned at the same length as Azure (32 each) for now. Once the labs are mapped to shared modules the counts will drop, so the pace will look worse than it is until then.",
+  "baselineNote": "Azure projects 1 to 4 were finished before tracking began. They are the first four of the 32 Azure labs: seven projects of my own (1 to 5, 6, 7) plus 25 labs. GCP and AWS are planned at the same length as Azure (32 each) for now. Once the labs are mapped to shared modules the counts will drop, so the pace will look worse than it is until then.",
   "weights": {
     "built": 1
   },
@@ -11,7 +11,7 @@
     "aws-labs": "AWS labs",
     "ticketing": "Ticketing platform"
   },
-  "updated": "2026-10-23",
+  "updated": "2026-10-25",
   "items": [
     {
       "id": "az-projects-1",
@@ -19,7 +19,7 @@
       "name": "Project 5: Governance controls",
       "planned": "2026-10-23",
       "built": "2026-10-23",
-      "video": "planned",
+      "video": "2026-10-25",
       "posts": "planned",
       "current": false,
       "doc": "planned"
@@ -27,7 +27,7 @@
     {
       "id": "az-projects-2",
       "track": "az-labs",
-      "name": "Project 6a: Terraform pipeline",
+      "name": "Project 7: Terraform pipeline",
       "planned": "2026-10-23",
       "built": null,
       "video": "planned",
@@ -38,7 +38,7 @@
     {
       "id": "az-projects-3",
       "track": "az-labs",
-      "name": "Project 6b: AWS to Azure migration",
+      "name": "Project 6: AWS to Azure migration",
       "planned": "2026-10-23",
       "built": null,
       "video": "planned",
@@ -379,7 +379,7 @@
     {
       "id": "gcp-projects-6",
       "track": "gcp-labs",
-      "name": "Project 6a: Terraform pipeline",
+      "name": "Project 7: Terraform pipeline",
       "planned": "2026-10-29",
       "built": null,
       "video": "skip",
@@ -390,7 +390,7 @@
     {
       "id": "gcp-projects-7",
       "track": "gcp-labs",
-      "name": "Project 6b: Migration (Azure into GCP)",
+      "name": "Project 6: Migration (Azure into GCP)",
       "planned": "2026-10-31",
       "built": null,
       "video": "planned",
@@ -731,7 +731,7 @@
     {
       "id": "aws-projects-6",
       "track": "aws-labs",
-      "name": "Project 6a: Terraform pipeline",
+      "name": "Project 7: Terraform pipeline",
       "planned": "2026-11-05",
       "built": null,
       "video": "planned",
@@ -742,7 +742,7 @@
     {
       "id": "aws-projects-7",
       "track": "aws-labs",
-      "name": "Project 6b: Migration (GCP into AWS)",
+      "name": "Project 6: Migration (GCP into AWS)",
       "planned": "2026-11-07",
       "built": null,
       "video": "skip",
