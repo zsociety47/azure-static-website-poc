@@ -50,7 +50,7 @@
             padding: 36px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            width: min(860px, 100%);
+            width: min(920px, 100%);
             height: fit-content;
         }
 
@@ -103,9 +103,23 @@
         .tag { font-size: 0.72rem; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 1px 8px; white-space: nowrap; }
         .tag.now { color: #fff; background: var(--blue); border-color: var(--blue); }
         .badges { display: inline-flex; gap: 4px; margin-left: 8px; vertical-align: middle; }
-        .badge { font-size: 0.66rem; border-radius: 99px; padding: 0 7px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+        .badge { font-size: 0.66rem; border-radius: 99px; padding: 0 7px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; text-decoration: none; }
         .badge.on { color: #fff; background: var(--good); border-color: var(--good); }
+        a.badge.on:hover, a.badge.on:focus-visible { filter: brightness(0.92); }
         .badge.skip { text-decoration: line-through; opacity: 0.55; }
+        .projects { display: grid; gap: 10px; }
+        .project-card {
+            border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: #fff;
+        }
+        .project-card h3 { margin: 0 0 4px; font-size: 1rem; }
+        .project-card .blurb { font-size: 0.85rem; color: var(--muted); margin: 0 0 10px; }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip, a.chip {
+            font-size: 0.78rem; border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px;
+            color: var(--blue-dark); text-decoration: none; background: #f4f8fc;
+        }
+        a.chip:hover, a.chip:focus-visible { background: #e8f2fb; }
+        .chip.off { color: var(--muted); background: #f6f7f9; }
         .tag.done { color: var(--good); border-color: var(--good); }
 
         .buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
@@ -133,7 +147,7 @@
         <header>
             <h1>Hello from the Cloud ☁️</h1>
             <p class="subtitle">Built and deployed by Zeon Stewart</p>
-            <p class="note">This page is served straight from Azure Blob Storage, with no web server to manage. It started as one static page and is now my live build tracker: what is finished, what is next, and whether I am on pace.</p>
+            <p class="note">This page is served straight from Azure Blob Storage, with no web server to manage. It started as one static page and is now my live build tracker: what is finished, what is next, and whether I am on pace. Green badges that look like pills are links to the repo, the video, the posts, or the click-through guide.</p>
         </header>
 
         <div id="error" role="alert">The tracker data could not load. Refresh the page, or see the project list on GitHub.</div>
@@ -166,9 +180,14 @@
         <h2>Recently built</h2>
         <ul class="list" id="recent"></ul>
 
+        <h2>Azure projects</h2>
+        <p class="note" style="text-align:left;margin:0 0 12px">The seven Azure proofs of concept. A green badge is a link. The longer list, with every artifact spelled out, is on the <a href="projects.html">projects page</a>.</p>
+        <div class="projects" id="catalog"></div>
+
         <hr>
 
         <nav class="buttons" aria-label="Links">
+            <a class="btn" href="projects.html">Project list</a>
             <a class="btn" href="https://github.com/zsociety47" target="_blank" rel="noopener">GitHub Profile</a>
             <a class="btn" href="https://www.linkedin.com/in/zeon-stewart-cloud-developer/" target="_blank" rel="noopener">LinkedIn Profile</a>
             <a class="btn" href="Zeon_Stewart_Resume.pdf" target="_blank" rel="noopener">View Résumé</a>
@@ -209,6 +228,7 @@
                 var b = partDate(i.built);
                 return { id: i.id, track: i.track, name: i.name, planned: parse(i.planned), current: !!i.current,
                          built: b, video: i.video, posts: i.posts, doc: i.doc || 'planned',
+                         links: i.links || {}, catalog: !!i.catalog, n: i.n || 0, blurb: i.blurb || '',
                          events: b ? [{ date: b, value: 1 }] : [],
                          full: all.every(function (v) { return partDate(v); }) };
             });
@@ -228,7 +248,7 @@
             var weeks = Math.max((now - start) / (7 * DAY), 0);
 
             el('s-done').textContent = r1(done) + ' of ' + total;
-            el('s-done-sub').textContent = base + ' finished before tracking began. Counts when the README and screenshots prove the build. Fully complete (video, posts and guide too, not counting projects 1 to 4 until their guides exist): ' + items.filter(function (i) { return i.full; }).length + '.';
+            el('s-done-sub').textContent = 'Counts when the README and screenshots prove the build. Fully complete (video, posts, and guide, each with a link): ' + items.filter(function (i) { return i.full; }).length + '.';
 
             var delta = done - planned;
             var dEl = el('s-delta');
@@ -250,6 +270,7 @@
             drawChart(items, base, total, start, now, plannedBy, doneBy);
             drawBars(data, items, baseByTrack);
             drawLists(data, items, now);
+            drawCatalog(items);
             el('updated').textContent = fmtY(parse(data.updated));
         }
 
@@ -326,27 +347,88 @@
             });
         }
 
-        function badge(label, v) {
-            var b = document.createElement('span');
-            b.className = 'badge' + (v === 'skip' ? ' skip' : (v && v !== 'planned' ? ' on' : ''));
+        function isDone(v) { return v && v !== 'planned' && v !== 'skip'; }
+
+        function badge(label, v, href) {
+            var done = isDone(v);
+            var b = (href && done) ? document.createElement('a') : document.createElement('span');
+            if (b.tagName === 'A') {
+                b.href = href;
+                b.target = '_blank';
+                b.rel = 'noopener noreferrer';
+            }
+            b.className = 'badge' + (v === 'skip' ? ' skip' : (done ? ' on' : ''));
             b.textContent = label;
-            b.title = label + (v === 'skip' ? ': not planned' : (v && v !== 'planned' ? ': done' : ': planned'));
+            b.title = label + (v === 'skip' ? ': not planned' : (done ? (href ? ': open' : ': done') : ': planned'));
             return b;
+        }
+
+        function itemBadges(item) {
+            var bs = document.createElement('span'); bs.className = 'badges';
+            var L = item.links || {};
+            bs.appendChild(badge('Built', item.built ? 'x' : 'planned', L.github));
+            bs.appendChild(badge('Video', item.video, L.video));
+            bs.appendChild(badge('Posts', item.posts, L.linkedin));
+            bs.appendChild(badge('Guide', item.doc, L.guide));
+            if (L.live) bs.appendChild(badge('Live', 'x', L.live));
+            return bs;
         }
 
         function li(item, trackName, tagText, tagClass, dateOf) {
             var li = document.createElement('li');
             var d = document.createElement('span'); d.className = 'date'; d.textContent = fmt(dateOf || item.planned);
             var n = document.createElement('span'); n.textContent = trackName + ': ' + item.name;
-            var bs = document.createElement('span'); bs.className = 'badges';
-            bs.appendChild(badge('Built', item.built ? 'x' : 'planned'));
-            bs.appendChild(badge('Video', item.video));
-            bs.appendChild(badge('Posts', item.posts));
-            bs.appendChild(badge('Guide', item.doc));
-            n.appendChild(bs);
+            n.appendChild(itemBadges(item));
             var t = document.createElement('span'); t.className = 'tag ' + tagClass; t.textContent = tagText;
             li.appendChild(d); li.appendChild(n); li.appendChild(t);
             return li;
+        }
+
+        function chip(label, href) {
+            if (!href) {
+                var s = document.createElement('span');
+                s.className = 'chip off';
+                s.textContent = label;
+                return s;
+            }
+            var a = document.createElement('a');
+            a.className = 'chip';
+            a.href = href;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = label;
+            return a;
+        }
+
+        function drawCatalog(items) {
+            var box = el('catalog');
+            if (!box) return;
+            var list = items.filter(function (i) { return i.catalog; }).sort(function (a, b) { return a.n - b.n; });
+            list.forEach(function (i) {
+                var card = document.createElement('article');
+                card.className = 'project-card';
+                var h = document.createElement('h3');
+                h.textContent = i.name;
+                card.appendChild(h);
+                if (i.blurb) {
+                    var p = document.createElement('p');
+                    p.className = 'blurb';
+                    p.textContent = i.blurb;
+                    card.appendChild(p);
+                }
+                card.appendChild(itemBadges(i));
+                var chips = document.createElement('div');
+                chips.className = 'chips';
+                chips.style.marginTop = '10px';
+                var L = i.links || {};
+                if (L.github) chips.appendChild(chip('GitHub', L.github));
+                if (isDone(i.video) && L.video) chips.appendChild(chip('Walkthrough', L.video));
+                if (isDone(i.doc) && L.guide) chips.appendChild(chip('Guide', L.guide));
+                if (isDone(i.posts) && L.linkedin) chips.appendChild(chip('LinkedIn', L.linkedin));
+                if (L.live) chips.appendChild(chip('Live site', L.live));
+                card.appendChild(chips);
+                box.appendChild(card);
+            });
         }
 
         function drawLists(data, items, now) {

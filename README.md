@@ -10,7 +10,7 @@
 
 **Live site:** [ststaticwebpoczeon01.z13.web.core.windows.net](https://ststaticwebpoczeon01.z13.web.core.windows.net/) · **Author:** Zeon Stewart, [LinkedIn](LINKEDIN_LINK_HERE)
 
-**Build tracker:** the live site is now a progress page with a pace chart of every project and lab, planned versus finished. Its data is `site/progress.json`; `scripts/mark-done.sh <id> [built|video|posts]` records progress.
+**Build tracker:** the live site is a progress page plus a [project list](site/projects.html) with a link for every finished piece (GitHub, video, guide, LinkedIn). Data is `site/progress.json`; `scripts/mark-done.sh <id> [built|video|posts|doc]` records dates.
 
 ## At a glance
 
