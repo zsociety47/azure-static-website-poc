@@ -205,7 +205,13 @@ The same build as the Project Steps, in three commands.
 
 ### Run this as yourself
 
-`./scripts/deploy.sh` takes a suffix, 2 to 8 lowercase letters or digits. That suffix is yours, not `zeon`. Example: `./scripts/deploy.sh ada01`. It becomes the end of the resource group and the storage account, which must be unique in Azure. Pass your GitHub repository to `setup-oidc.sh` as `YOUR_OWNER/YOUR_REPO`. The `owner` tag defaults to your signed-in user name unless you set `OWNER`.
+The names committed in this repository are this proof of concept. Leave them. Pass your own suffix on the command line. The sequence is the same as the [naming standard](https://github.com/zsociety47/cloud-projects/blob/main/standards/NAMING-STANDARD.md): type, project, environment, then **your** owner word and number (`rg-staticweb-poc-zeon01` becomes `rg-staticweb-poc-ada01`).
+
+| Open this | Do this |
+|---|---|
+| [`scripts/deploy.sh`](scripts/deploy.sh) | Run `./scripts/deploy.sh <suffix>`. The suffix is 2 to 8 lowercase letters or digits, for example `ada01`. It becomes the end of the resource group and the storage account (`rg-staticweb-poc-ada01`, `ststaticwebpocada01`). Storage account names have no hyphens. |
+| [`scripts/setup-oidc.sh`](scripts/setup-oidc.sh) | Pass **your** GitHub repository as `YOUR_OWNER/YOUR_REPO`, then the storage account name the deploy script printed. Do not copy `zsociety47`. |
+| owner tag | Optional. Set `OWNER=yourname` in the shell before deploy if you do not want the signed-in user name. |
 
 **1. Create the Azure resources and upload the site** (steps 1-6)
 
