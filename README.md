@@ -203,10 +203,14 @@ The same build as the Project Steps, in three commands.
 
 **Prerequisites:** an Azure subscription where you are Owner (or Contributor plus User Access Administrator), the Azure command-line interface (CLI) signed in with `az login`, and the GitHub CLI (`gh`) signed in with `gh auth login`.
 
+### Run this as yourself
+
+`./scripts/deploy.sh` takes a suffix, 2 to 8 lowercase letters or digits. That suffix is yours, not `zeon`. Example: `./scripts/deploy.sh ada01`. It becomes the end of the resource group and the storage account, which must be unique in Azure. Pass your GitHub repository to `setup-oidc.sh` as `YOUR_OWNER/YOUR_REPO`. The `owner` tag defaults to your signed-in user name unless you set `OWNER`.
+
 **1. Create the Azure resources and upload the site** (steps 1-6)
 
 ```bash
-./scripts/deploy.sh <suffix>        # suffix: 2-8 lowercase letters or digits, e.g. zs01
+./scripts/deploy.sh <suffix>        # suffix: 2-8 lowercase letters or digits, e.g. ada01
 ```
 
 The script prints the live site address and the storage account name.
