@@ -444,7 +444,7 @@
    "n": 2,
    "name": "Project 2: Two-tier network",
    "planned": "2026-10-25",
-   "built": null,
+   "built": "2026-10-27",
    "video": "planned",
    "posts": "planned",
    "current": true,
@@ -452,7 +452,7 @@
    "links": {
     "github": "https://github.com/zsociety47/gcp-two-tier-network-poc"
    },
-   "blurb": "A database with no public address, reachable only from the web tier. The plan is in the repository. Nothing is deployed yet."
+   "blurb": "A database with no public address, reachable only from the web tier. Verified October 27, 2026. The video is not recorded yet."
   },
   {
    "id": "gcp-projects-3",
