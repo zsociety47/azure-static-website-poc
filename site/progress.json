@@ -11,7 +11,7 @@
   "aws-labs": "AWS labs",
   "ticketing": "Ticketing platform"
  },
- "updated": "2026-10-25",
+ "updated": "2026-10-26",
  "items": [
   {
    "id": "az-p1",
@@ -116,7 +116,7 @@
    "track": "az-labs",
    "name": "Project 7: Terraform pipeline",
    "planned": "2026-10-23",
-   "built": null,
+   "built": "2026-10-26",
    "video": "planned",
    "posts": "planned",
    "current": true,
