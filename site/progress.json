@@ -165,7 +165,13 @@
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "catalog": true,
+   "n": 9,
+   "links": {
+    "github": "https://github.com/zsociety47/azure-backup-system"
+   },
+   "blurb": "Geo-redundant storage keeps previous versions and a 30-day soft delete, and an alert fires if a day passes with no writes."
   },
   {
    "id": "az-labs-3",
