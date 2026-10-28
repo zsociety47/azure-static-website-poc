@@ -2,7 +2,7 @@
 
 [![Deploy static website](https://github.com/zsociety47/azure-static-website-poc/actions/workflows/deploy.yml/badge.svg)](https://github.com/zsociety47/azure-static-website-poc/actions/workflows/deploy.yml)
 
-## 🎬 Watch Me Build This Lab!
+## 🎬 Watch the walkthrough
 
 [![Watch the video](docs/images/loom-thumbnail.gif)](https://www.loom.com/share/56b36c39bfb84152828e7ee3ad1f6cc7)
 
@@ -81,7 +81,7 @@ Steps 1-6 host the site. Steps 7-11 connect GitHub Actions so every push deploys
 
 *Automated by `az role assignment create` in `scripts/deploy.sh`.*
 
-Being Owner of the subscription does not let you read or write files with your own identity; that needs a data role.
+Being Owner of the subscription doesn't let you read or write files with your own identity; that needs a data role.
 
 1. In the storage account menu, open **Access control (IAM)** (identity and access management).
 2. Select **+ Add > Add role assignment**.
@@ -89,7 +89,7 @@ Being Owner of the subscription does not let you read or write files with your o
 4. **Members** tab: **Assign access to** User, group, or service principal. Select **+ Select members**, choose your own account, then **Select**.
 5. Select **Review + assign** twice.
 
-The role can take a few minutes to take effect. If the next step says you do not have permission, wait and try again.
+The role can take a few minutes to take effect. If the next step says you don't have permission, wait and try again.
 
 ![Role assignments: Storage Blob Data Contributor for you and for the GitHub Actions app](docs/images/step-04-role-assignment.png)
 
@@ -121,7 +121,7 @@ If you already ran `setup-oidc.sh` for this repository, skip steps 7-10: you wou
 2. **Name:** `github-actions-<repo-name>`
 3. **Supported account types:** Accounts in this organizational directory only.
 4. Select **Register**. The portal also creates the service principal (listed under **Enterprise applications**).
-5. From the **Overview** page, note the **Application (client) ID** and **Directory (tenant) ID**. Do not paste them anywhere public.
+5. From the **Overview** page, note the **Application (client) ID** and **Directory (tenant) ID**. Don't paste them anywhere public.
 
 ![App registration Overview: name, no client secret, Microsoft Entra ID tenant](docs/images/step-07-app-registration.png)
 
@@ -201,17 +201,17 @@ The live site linked at the top of this page is kept running on purpose as a wor
 
 The same build as the Project Steps, in three commands.
 
-**Prerequisites:** an Azure subscription where you are Owner (or Contributor plus User Access Administrator), the Azure command-line interface (CLI) signed in with `az login`, and the GitHub CLI (`gh`) signed in with `gh auth login`.
+**Prerequisites:** an Azure subscription where you're Owner (or Contributor plus User Access Administrator), the Azure command-line interface (CLI) signed in with `az login`, and the GitHub CLI (`gh`) signed in with `gh auth login`.
 
 ### Run this as yourself
 
-The names committed in this repository are this proof of concept. Leave them. Pass your own suffix on the command line. The sequence is the same as the [naming standard](https://github.com/zsociety47/cloud-projects/blob/main/standards/NAMING-STANDARD.md): type, project, environment, then **your** owner word and number (`rg-staticweb-poc-zeon01` becomes `rg-staticweb-poc-ada01`).
+The names in this repository are the ones I used for my own proof of concept, so leave them as they are and pass your own suffix on the command line. The names follow the [naming standard](https://github.com/zsociety47/cloud-projects/blob/main/standards/NAMING-STANDARD.md): type, project, environment, then your short name and a number (`rg-staticweb-poc-zeon01` becomes `rg-staticweb-poc-ada01`).
 
 | Open this | Do this |
 |---|---|
 | [`scripts/deploy.sh`](scripts/deploy.sh) | Run `./scripts/deploy.sh <suffix>`. The suffix is 2 to 8 lowercase letters or digits, for example `ada01`. It becomes the end of the resource group and the storage account (`rg-staticweb-poc-ada01`, `ststaticwebpocada01`). Storage account names have no hyphens. |
-| [`scripts/setup-oidc.sh`](scripts/setup-oidc.sh) | Pass **your** GitHub repository as `YOUR_OWNER/YOUR_REPO`, then the storage account name the deploy script printed. Do not copy `zsociety47`. |
-| owner tag | Optional. Set `OWNER=yourname` in the shell before deploy if you do not want the signed-in user name. |
+| [`scripts/setup-oidc.sh`](scripts/setup-oidc.sh) | Pass **your** GitHub repository as `YOUR_OWNER/YOUR_REPO`, then the storage account name the deploy script printed. Don't copy `zsociety47`. |
+| owner tag | Optional. Set `OWNER=yourname` in your shell before you deploy if you don't want the owner tag to use your signed-in user name. |
 
 **1. Create the Azure resources and upload the site** (steps 1-6)
 
@@ -331,14 +331,14 @@ A static website can be hosted on Azure Storage with no web server to manage, an
 ## Security choices
 
 - **OpenID Connect instead of stored secrets.** Each workflow run gets a token from GitHub that expires in minutes. Azure trusts it only if it comes from this repository deploying to the `production` environment.
-- **Least privilege with role-based access control (RBAC).** The deploy identity has only the Storage Blob Data Contributor role, scoped to this one storage account. It cannot change settings, delete the account, or reach anything else in the subscription.
+- **Least privilege with role-based access control (RBAC).** The deploy identity has only the Storage Blob Data Contributor role, scoped to this one storage account. It can't change settings, delete the account, or reach anything else in the subscription.
 - **No storage account keys.** Both the scripts and the workflow upload with `--auth-mode login`, which uses the signed-in identity's role instead of the account's master key.
 - **Hardened storage account.** HTTPS only, minimum Transport Layer Security (TLS) version 1.2, and anonymous public access to blobs turned off. The static website endpoint still serves the site.
 - **Minimal workflow permissions.** The workflow token can only read the code and request an OpenID Connect token.
 
 ## Cost and redundancy
 
-The storage account uses locally redundant storage (LRS): three copies of the data in one datacenter. It is the cheapest option and costs cents per month for a site this size. Production sites might choose zone-redundant storage (ZRS), which spreads copies across three availability zones in a region, or geo-redundant storage (GRS), which adds a second copy in another region.
+The storage account uses locally redundant storage (LRS): three copies of the data in one datacenter. It's the cheapest option and costs cents per month for a site this size. Production sites might choose zone-redundant storage (ZRS), which spreads copies across three availability zones in a region, or geo-redundant storage (GRS), which adds a second copy in another region.
 
 ## Going further
 
@@ -353,6 +353,6 @@ The storage account uses locally redundant storage (LRS): three copies of the da
 
 - **GitHub's OpenID Connect subject format has changed, and most guides haven't caught up.** The first real deploy failed with `AADSTS700213: No matching federated identity record found`. New GitHub repositories now include permanent owner and repository IDs in the token subject (`repo:zsociety47@122703085/azure-static-website-poc@1396638213:environment:production`), but the federated credential used the older name-only format (`repo:zsociety47/azure-static-website-poc:environment:production`) that most tutorials still show. The workflow log printed the subject GitHub actually sent, which made the mismatch easy to spot. `setup-oidc.sh` now asks GitHub for the exact subject, so it works with both formats.
 - **New role assignments are not instant, and the delay varies.** The first upload in `deploy.sh` was refused with "You do not have the required permissions" seconds after the Storage Blob Data Contributor role was granted. It succeeded after 30 seconds on the first build and after a few minutes on a rebuild. `deploy.sh` now grants the role before enabling static website hosting, so the wait overlaps with other work, then checks every 15 seconds for up to 10 minutes with a short progress message. The error message also suggested switching to `--auth-mode key`, which would have worked but defeated the point of the project.
-- **Being Owner of the subscription is not the same as being able to write files.** Owner covers management actions such as creating the storage account and turning on static website hosting, but uploading blobs with your own identity needs a separate data role. Keeping those two kinds of permission apart is what lets the GitHub identity hold only a data role on one storage account, with no power to change or delete anything else.
+- **Being Owner of the subscription isn't the same as being able to write files.** Owner covers management actions such as creating the storage account and turning on static website hosting, but uploading blobs with your own identity needs a separate data role. Keeping those two kinds of permission apart is what lets the GitHub identity hold only a data role on one storage account, with no power to change or delete anything else.
 - **The pipeline fails closed.** The very first push ran before any Azure credentials existed in GitHub. The workflow stopped at the sign-in step and never reached the upload, so a missing or broken identity can't lead to a partial or unauthorized deploy.
 - **`az storage blob upload-batch` only adds and overwrites files.** Deleting a page from `site/` leaves the old copy live on Azure. A future version could use `az storage blob sync` with `--delete-destination true` to mirror the folder exactly.
