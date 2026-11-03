@@ -11,7 +11,7 @@
   "aws-labs": "AWS labs",
   "ticketing": "Ticketing platform"
  },
- "updated": "2026-10-27",
+ "updated": "2026-11-03",
  "items": [
   {
    "id": "az-p1",
@@ -133,17 +133,18 @@
    "track": "az-labs",
    "name": "Project 6: AWS to Azure migration",
    "planned": "2026-10-23",
-   "built": null,
-   "video": "planned",
+   "built": "2026-11-02",
+   "video": "2026-11-03",
    "posts": "planned",
    "current": false,
-   "doc": "planned",
+   "doc": "2026-11-03",
    "catalog": true,
    "n": 6,
    "links": {
-    "github": "https://github.com/zsociety47/azure-aws-migrate-poc"
+    "github": "https://github.com/zsociety47/azure-aws-migrate-poc",
+    "video": "https://www.loom.com/share/8d2fbd4ae33b4ac6af3cfb42c0a76eee"
    },
-   "blurb": "A Windows Server on Amazon Web Services can be discovered, assessed, replicated, and cut over to Azure."
+   "blurb": "A Windows Server on Amazon Web Services can be discovered, replicated, and cut over to Azure."
   },
   {
    "id": "az-labs-1",
@@ -463,24 +464,30 @@
   {
    "id": "gcp-projects-3",
    "track": "gcp-labs",
-   "name": "Project 3: SQL and secrets",
-   "planned": "2026-10-26",
+   "catalog": true,
+   "n": 3,
+   "name": "Project 3: Managed database and secrets",
+   "planned": "2026-10-28",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "blurb": "A virtual machine reads a database password from Secret Manager and queries Cloud SQL on a private address. Not built yet."
   },
   {
    "id": "gcp-projects-4",
    "track": "gcp-labs",
-   "name": "Project 4: Terraform IaC",
+   "catalog": true,
+   "n": 4,
+   "name": "Project 4: Network in Terraform",
    "planned": "2026-10-27",
    "built": null,
-   "video": "skip",
-   "posts": "skip",
+   "video": "planned",
+   "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "blurb": "A custom Virtual Private Cloud and one subnet, then a firewall rule added without changing the network. Not built yet."
   },
   {
    "id": "gcp-projects-5",
