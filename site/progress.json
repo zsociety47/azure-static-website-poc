@@ -1,7 +1,7 @@
 {
  "start": "2026-10-22",
  "baseline": 0,
- "baselineNote": "Azure projects 1 to 5 are listed with links to the GitHub repo, the walkthrough video, and the click-through guide. Projects 1 and 2 also have LinkedIn posts live. GCP and AWS are planned at the same length as Azure (32 each) for now. Once later modules are mapped the counts will drop, so the pace will look worse than it is until then.",
+ "baselineNote": "Azure projects 1 to 5 are listed with links to the GitHub repo, the walkthrough video, and the click-through guide. Projects 1 and 2 also have LinkedIn posts live. GCP and AWS are planned at the same length as Azure (32 each) for now. Once later modules are mapped the counts will drop, so the pace will look worse than it is until then. Plan restarted Nov 4, 2026: finished items count as on plan from their built date, and everything unfinished was re-dated from Nov 5 at two items a day (an Azure item plus a Google Cloud item, Fridays off; AWS takes each slot as it frees up). The original planned dates are kept in each item as originalPlanned.",
  "weights": {
   "built": 1
  },
@@ -11,7 +11,7 @@
   "aws-labs": "AWS labs",
   "ticketing": "Ticketing platform"
  },
- "updated": "2026-11-03",
+ "updated": "2026-11-04",
  "items": [
   {
    "id": "az-p1",
@@ -32,7 +32,8 @@
     "live": "https://ststaticwebpoczeon01.z13.web.core.windows.net/",
     "linkedin": "https://www.linkedin.com/in/zeon-stewart-cloud-developer/"
    },
-   "blurb": "A static site on Azure Storage, deployed from GitHub Actions with no stored credentials."
+   "blurb": "A static site on Azure Storage, deployed from GitHub Actions with no stored credentials.",
+   "originalPlanned": "2026-10-22"
   },
   {
    "id": "az-p2",
@@ -52,7 +53,8 @@
     "guide": "https://docs.google.com/document/d/1ZZh1u5jgFMWFJdByNit3wqynArsU3dWoDWEpjXNPtNY/edit",
     "linkedin": "https://www.linkedin.com/in/zeon-stewart-cloud-developer/"
    },
-   "blurb": "A database with no public IP is reachable on port 5432 only from the web subnet."
+   "blurb": "A database with no public IP is reachable on port 5432 only from the web subnet.",
+   "originalPlanned": "2026-10-22"
   },
   {
    "id": "az-p3",
@@ -71,7 +73,8 @@
     "video": "https://www.loom.com/share/326b50f1396142d9848704c6918908b5",
     "guide": "https://docs.google.com/document/d/19S8TgzidG6SAsS7o8Uqk50lcDH1GNv71aJh-Iczddv8/edit"
    },
-   "blurb": "A VM reads the SQL password from Key Vault with a managed identity and is refused if it tries to write a secret."
+   "blurb": "A VM reads the SQL password from Key Vault with a managed identity and is refused if it tries to write a secret.",
+   "originalPlanned": "2026-10-22"
   },
   {
    "id": "az-p4",
@@ -90,7 +93,8 @@
     "video": "https://www.loom.com/share/b0448fef104a4bdc90a3d7c63cad2014",
     "guide": "https://docs.google.com/document/d/1WZJchEeQk66tug00_VETkNCrVWUY4zhDyzeKmG6Hcvw/edit"
    },
-   "blurb": "A virtual network described in Terraform gains a firewall after it already exists, then comes down with destroy."
+   "blurb": "A virtual network described in Terraform gains a firewall after it already exists, then comes down with destroy.",
+   "originalPlanned": "2026-10-22"
   },
   {
    "id": "az-projects-1",
@@ -109,30 +113,32 @@
     "video": "https://www.loom.com/share/6f35ccb43dbb4a57b4905d501d9b9163",
     "guide": "https://docs.google.com/document/d/1Q-UfHIo3upJhErxvD3rNUfZmBvslb18VaWd_BfEwqb0/edit"
    },
-   "blurb": "A reader is limited to one resource group, policy blocks an oversized VM before it exists, and a budget alerts at 50 dollars."
+   "blurb": "A reader is limited to one resource group, policy blocks an oversized VM before it exists, and a budget alerts at 50 dollars.",
+   "originalPlanned": "2026-10-23"
   },
   {
    "id": "az-projects-2",
    "track": "az-labs",
    "name": "Project 7: Terraform pipeline",
-   "planned": "2026-10-23",
+   "planned": "2026-10-26",
    "built": "2026-10-26",
    "video": "planned",
    "posts": "planned",
-   "current": false,
+   "current": true,
    "doc": "planned",
    "catalog": true,
    "n": 7,
    "links": {
     "github": "https://github.com/zsociety47/azure-terraform-pipeline-poc"
    },
-   "blurb": "A pull request plans a Terraform change, and only the main branch can apply it, with no Azure password in GitHub."
+   "blurb": "A pull request plans a Terraform change, and only the main branch can apply it, with no Azure password in GitHub.",
+   "originalPlanned": "2026-10-23"
   },
   {
    "id": "az-projects-3",
    "track": "az-labs",
    "name": "Project 6: AWS to Azure migration",
-   "planned": "2026-10-23",
+   "planned": "2026-11-02",
    "built": "2026-11-02",
    "video": "2026-11-03",
    "posts": "planned",
@@ -144,24 +150,26 @@
     "github": "https://github.com/zsociety47/azure-aws-migrate-poc",
     "video": "https://www.loom.com/share/8d2fbd4ae33b4ac6af3cfb42c0a76eee"
    },
-   "blurb": "A Windows Server on Amazon Web Services can be discovered, replicated, and cut over to Azure."
+   "blurb": "A Windows Server on Amazon Web Services can be discovered, replicated, and cut over to Azure.",
+   "originalPlanned": "2026-10-23"
   },
   {
    "id": "az-labs-1",
    "track": "az-labs",
    "name": "Cost visibility dashboard",
-   "planned": "2026-10-24",
+   "planned": "2026-11-04",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-24"
   },
   {
    "id": "az-labs-2",
    "track": "az-labs",
    "name": "Backup system",
-   "planned": "2026-10-25",
+   "planned": "2026-11-04",
    "built": null,
    "video": "planned",
    "posts": "planned",
@@ -172,260 +180,284 @@
    "links": {
     "github": "https://github.com/zsociety47/azure-backup-system"
    },
-   "blurb": "Geo-redundant storage keeps previous versions and a 30-day soft delete, and an alert fires if a day passes with no writes."
+   "blurb": "Geo-redundant storage keeps previous versions and a 30-day soft delete, and an alert fires if a day passes with no writes.",
+   "originalPlanned": "2026-10-25"
   },
   {
    "id": "az-labs-3",
    "track": "az-labs",
    "name": "Uptime monitor",
-   "planned": "2026-10-26",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-4",
-   "track": "az-labs",
-   "name": "Network security and traffic analysis",
-   "planned": "2026-10-27",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-5",
-   "track": "az-labs",
-   "name": "Penetration testing",
-   "planned": "2026-10-28",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-6",
-   "track": "az-labs",
-   "name": "Web application security",
-   "planned": "2026-10-29",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-7",
-   "track": "az-labs",
-   "name": "Server hardening",
-   "planned": "2026-10-31",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-8",
-   "track": "az-labs",
-   "name": "Cloud security",
-   "planned": "2026-11-01",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-9",
-   "track": "az-labs",
-   "name": "Incident response and threat hunting",
-   "planned": "2026-11-02",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-10",
-   "track": "az-labs",
-   "name": "Security scripting",
-   "planned": "2026-11-03",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-11",
-   "track": "az-labs",
-   "name": "Golden image pipeline",
-   "planned": "2026-11-04",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "az-labs-12",
-   "track": "az-labs",
-   "name": "Container scan and promotion",
    "planned": "2026-11-05",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-26"
   },
   {
-   "id": "az-labs-13",
+   "id": "az-labs-4",
    "track": "az-labs",
-   "name": "Terraform module library",
+   "name": "Network security and traffic analysis",
    "planned": "2026-11-07",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-27"
   },
   {
-   "id": "az-labs-14",
+   "id": "az-labs-5",
    "track": "az-labs",
-   "name": "GitOps on AKS",
+   "name": "Penetration testing",
    "planned": "2026-11-08",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-28"
   },
   {
-   "id": "az-labs-15",
+   "id": "az-labs-6",
    "track": "az-labs",
-   "name": "Ansible hardening baseline",
+   "name": "Web application security",
    "planned": "2026-11-09",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-29"
   },
   {
-   "id": "az-labs-16",
+   "id": "az-labs-7",
    "track": "az-labs",
-   "name": "Helm on AKS",
+   "name": "Server hardening",
    "planned": "2026-11-10",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-31"
   },
   {
-   "id": "az-labs-17",
+   "id": "az-labs-8",
    "track": "az-labs",
-   "name": "Data platform: architecture and plan",
+   "name": "Cloud security",
    "planned": "2026-11-11",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-01"
   },
   {
-   "id": "az-labs-18",
+   "id": "az-labs-9",
    "track": "az-labs",
-   "name": "Data platform: foundation",
+   "name": "Incident response and threat hunting",
    "planned": "2026-11-12",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-02"
   },
   {
-   "id": "az-labs-19",
+   "id": "az-labs-10",
    "track": "az-labs",
-   "name": "Data platform: ingestion",
+   "name": "Security scripting",
    "planned": "2026-11-14",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-03"
   },
   {
-   "id": "az-labs-20",
+   "id": "az-labs-11",
    "track": "az-labs",
-   "name": "Data platform: orchestration",
+   "name": "Golden image pipeline",
    "planned": "2026-11-15",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-04"
   },
   {
-   "id": "az-labs-21",
+   "id": "az-labs-12",
    "track": "az-labs",
-   "name": "Data platform: querying",
+   "name": "Container scan and promotion",
    "planned": "2026-11-16",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-05"
   },
   {
-   "id": "az-labs-22",
+   "id": "az-labs-13",
    "track": "az-labs",
-   "name": "Data platform: AI",
+   "name": "Terraform module library",
    "planned": "2026-11-17",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-07"
   },
   {
-   "id": "az-labs-23",
+   "id": "az-labs-14",
    "track": "az-labs",
-   "name": "Data platform: observability",
+   "name": "GitOps on AKS",
    "planned": "2026-11-18",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-08"
   },
   {
-   "id": "az-labs-24",
+   "id": "az-labs-15",
    "track": "az-labs",
-   "name": "Inventory tracker",
+   "name": "Ansible hardening baseline",
    "planned": "2026-11-19",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-09"
   },
   {
-   "id": "az-labs-25",
+   "id": "az-labs-16",
    "track": "az-labs",
-   "name": "Regulated landing zone",
+   "name": "Helm on AKS",
    "planned": "2026-11-21",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-10"
+  },
+  {
+   "id": "az-labs-17",
+   "track": "az-labs",
+   "name": "Data platform: architecture and plan",
+   "planned": "2026-11-22",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-11"
+  },
+  {
+   "id": "az-labs-18",
+   "track": "az-labs",
+   "name": "Data platform: foundation",
+   "planned": "2026-11-23",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-12"
+  },
+  {
+   "id": "az-labs-19",
+   "track": "az-labs",
+   "name": "Data platform: ingestion",
+   "planned": "2026-11-24",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-14"
+  },
+  {
+   "id": "az-labs-20",
+   "track": "az-labs",
+   "name": "Data platform: orchestration",
+   "planned": "2026-11-25",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-15"
+  },
+  {
+   "id": "az-labs-21",
+   "track": "az-labs",
+   "name": "Data platform: querying",
+   "planned": "2026-11-26",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-16"
+  },
+  {
+   "id": "az-labs-22",
+   "track": "az-labs",
+   "name": "Data platform: AI",
+   "planned": "2026-11-28",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-17"
+  },
+  {
+   "id": "az-labs-23",
+   "track": "az-labs",
+   "name": "Data platform: observability",
+   "planned": "2026-11-29",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-18"
+  },
+  {
+   "id": "az-labs-24",
+   "track": "az-labs",
+   "name": "Inventory tracker",
+   "planned": "2026-11-30",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-19"
+  },
+  {
+   "id": "az-labs-25",
+   "track": "az-labs",
+   "name": "Regulated landing zone",
+   "planned": "2026-12-01",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-21"
   },
   {
    "id": "gcp-projects-1",
@@ -433,7 +465,7 @@
    "catalog": true,
    "n": 1,
    "name": "Project 1: Static website",
-   "planned": "2026-10-24",
+   "planned": "2026-10-26",
    "built": "2026-10-26",
    "video": "planned",
    "posts": "planned",
@@ -442,7 +474,8 @@
    "links": {
     "github": "https://github.com/zsociety47/gcp-static-website-poc"
    },
-   "blurb": "A public site served from a Cloud Storage bucket. A push to main uploads the pages with no stored key."
+   "blurb": "A public site served from a Cloud Storage bucket. A push to main uploads the pages with no stored key.",
+   "originalPlanned": "2026-10-24"
   },
   {
    "id": "gcp-projects-2",
@@ -450,16 +483,17 @@
    "catalog": true,
    "n": 2,
    "name": "Project 2: Two-tier network",
-   "planned": "2026-10-25",
+   "planned": "2026-10-27",
    "built": "2026-10-27",
    "video": "planned",
    "posts": "planned",
-   "current": true,
+   "current": false,
    "doc": "planned",
    "links": {
     "github": "https://github.com/zsociety47/gcp-two-tier-network-poc"
    },
-   "blurb": "A database with no public address, reachable only from the web tier. Verified October 27, 2026. The video is not recorded yet."
+   "blurb": "A database with no public address, reachable only from the web tier. Verified October 27, 2026. The video is not recorded yet.",
+   "originalPlanned": "2026-10-25"
   },
   {
    "id": "gcp-projects-3",
@@ -467,13 +501,14 @@
    "catalog": true,
    "n": 3,
    "name": "Project 3: Managed database and secrets",
-   "planned": "2026-10-28",
+   "planned": "2026-11-05",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
    "doc": "planned",
-   "blurb": "A virtual machine reads a database password from Secret Manager and queries Cloud SQL on a private address. Not built yet."
+   "blurb": "A virtual machine reads a database password from Secret Manager and queries Cloud SQL on a private address. Not built yet.",
+   "originalPlanned": "2026-10-28"
   },
   {
    "id": "gcp-projects-4",
@@ -481,717 +516,782 @@
    "catalog": true,
    "n": 4,
    "name": "Project 4: Network in Terraform",
-   "planned": "2026-10-27",
+   "planned": "2026-11-07",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
    "doc": "planned",
-   "blurb": "A custom Virtual Private Cloud and one subnet, then a firewall rule added without changing the network. Not built yet."
+   "blurb": "A custom Virtual Private Cloud and one subnet, then a firewall rule added without changing the network. Not built yet.",
+   "originalPlanned": "2026-10-27"
   },
   {
    "id": "gcp-projects-5",
    "track": "gcp-labs",
    "name": "Project 5: Governance controls",
-   "planned": "2026-10-28",
+   "planned": "2026-11-08",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-28"
   },
   {
    "id": "gcp-projects-6",
    "track": "gcp-labs",
    "name": "Project 7: Terraform pipeline",
-   "planned": "2026-10-29",
+   "planned": "2026-11-09",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-10-29"
   },
   {
    "id": "gcp-projects-7",
    "track": "gcp-labs",
    "name": "Project 6: Migration (Azure into GCP)",
-   "planned": "2026-10-31",
+   "planned": "2026-11-10",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "doc": "planned",
-   "current": false
+   "current": false,
+   "originalPlanned": "2026-10-31"
   },
   {
    "id": "gcp-labs-1",
    "track": "gcp-labs",
    "name": "Cost visibility dashboard",
-   "planned": "2026-11-01",
+   "planned": "2026-11-11",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-01"
   },
   {
    "id": "gcp-labs-2",
    "track": "gcp-labs",
    "name": "Backup system",
-   "planned": "2026-11-02",
+   "planned": "2026-11-12",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-02"
   },
   {
    "id": "gcp-labs-3",
    "track": "gcp-labs",
    "name": "Uptime monitor",
-   "planned": "2026-11-03",
+   "planned": "2026-11-14",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-03"
   },
   {
    "id": "gcp-labs-4",
    "track": "gcp-labs",
    "name": "Network security and traffic analysis",
-   "planned": "2026-11-04",
+   "planned": "2026-11-15",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-04"
   },
   {
    "id": "gcp-labs-5",
    "track": "gcp-labs",
    "name": "Penetration testing",
-   "planned": "2026-11-05",
+   "planned": "2026-11-16",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-05"
   },
   {
    "id": "gcp-labs-6",
    "track": "gcp-labs",
    "name": "Web application security",
-   "planned": "2026-11-07",
+   "planned": "2026-11-17",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-07"
   },
   {
    "id": "gcp-labs-7",
    "track": "gcp-labs",
    "name": "Server hardening",
-   "planned": "2026-11-08",
+   "planned": "2026-11-18",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-08"
   },
   {
    "id": "gcp-labs-8",
    "track": "gcp-labs",
    "name": "Cloud security",
-   "planned": "2026-11-09",
+   "planned": "2026-11-19",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-09"
   },
   {
    "id": "gcp-labs-9",
    "track": "gcp-labs",
    "name": "Incident response and threat hunting",
-   "planned": "2026-11-10",
+   "planned": "2026-11-21",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-10"
   },
   {
    "id": "gcp-labs-10",
    "track": "gcp-labs",
    "name": "Security scripting",
-   "planned": "2026-11-11",
+   "planned": "2026-11-22",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-11"
   },
   {
    "id": "gcp-labs-11",
    "track": "gcp-labs",
    "name": "Golden image pipeline",
-   "planned": "2026-11-12",
+   "planned": "2026-11-23",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-12"
   },
   {
    "id": "gcp-labs-12",
    "track": "gcp-labs",
    "name": "Container scan and promotion",
-   "planned": "2026-11-14",
+   "planned": "2026-11-24",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-14"
   },
   {
    "id": "gcp-labs-13",
    "track": "gcp-labs",
    "name": "Terraform module library",
-   "planned": "2026-11-15",
+   "planned": "2026-11-25",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-15"
   },
   {
    "id": "gcp-labs-14",
    "track": "gcp-labs",
    "name": "GitOps on AKS",
-   "planned": "2026-11-16",
+   "planned": "2026-11-26",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-16"
   },
   {
    "id": "gcp-labs-15",
    "track": "gcp-labs",
    "name": "Ansible hardening baseline",
-   "planned": "2026-11-17",
+   "planned": "2026-11-28",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-17"
   },
   {
    "id": "gcp-labs-16",
    "track": "gcp-labs",
    "name": "Helm on AKS",
-   "planned": "2026-11-18",
+   "planned": "2026-11-29",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-18"
   },
   {
    "id": "gcp-labs-17",
    "track": "gcp-labs",
    "name": "Data platform: architecture and plan",
-   "planned": "2026-11-19",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-18",
-   "track": "gcp-labs",
-   "name": "Data platform: foundation",
-   "planned": "2026-11-21",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-19",
-   "track": "gcp-labs",
-   "name": "Data platform: ingestion",
-   "planned": "2026-11-22",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-20",
-   "track": "gcp-labs",
-   "name": "Data platform: orchestration",
-   "planned": "2026-11-23",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-21",
-   "track": "gcp-labs",
-   "name": "Data platform: querying",
-   "planned": "2026-11-24",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-22",
-   "track": "gcp-labs",
-   "name": "Data platform: AI",
-   "planned": "2026-11-25",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-23",
-   "track": "gcp-labs",
-   "name": "Data platform: observability",
-   "planned": "2026-11-26",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-24",
-   "track": "gcp-labs",
-   "name": "Inventory tracker",
-   "planned": "2026-11-28",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "gcp-labs-25",
-   "track": "gcp-labs",
-   "name": "Regulated landing zone",
-   "planned": "2026-11-29",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-projects-1",
-   "track": "aws-labs",
-   "name": "Project 1: Static website",
-   "planned": "2026-10-31",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-projects-2",
-   "track": "aws-labs",
-   "name": "Project 2: Two-tier network",
-   "planned": "2026-11-01",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-projects-3",
-   "track": "aws-labs",
-   "name": "Project 3: SQL and secrets",
-   "planned": "2026-11-02",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-projects-4",
-   "track": "aws-labs",
-   "name": "Project 4: Terraform IaC",
-   "planned": "2026-11-03",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-projects-5",
-   "track": "aws-labs",
-   "name": "Project 5: Governance controls",
-   "planned": "2026-11-04",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-projects-6",
-   "track": "aws-labs",
-   "name": "Project 7: Terraform pipeline",
-   "planned": "2026-11-05",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-projects-7",
-   "track": "aws-labs",
-   "name": "Project 6: Migration (GCP into AWS)",
-   "planned": "2026-11-07",
-   "built": null,
-   "video": "skip",
-   "posts": "planned",
-   "doc": "planned",
-   "current": false
-  },
-  {
-   "id": "aws-labs-1",
-   "track": "aws-labs",
-   "name": "Cost visibility dashboard",
-   "planned": "2026-11-08",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-2",
-   "track": "aws-labs",
-   "name": "Backup system",
-   "planned": "2026-11-09",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-3",
-   "track": "aws-labs",
-   "name": "Uptime monitor",
-   "planned": "2026-11-10",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-4",
-   "track": "aws-labs",
-   "name": "Network security and traffic analysis",
-   "planned": "2026-11-11",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-5",
-   "track": "aws-labs",
-   "name": "Penetration testing",
-   "planned": "2026-11-12",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-6",
-   "track": "aws-labs",
-   "name": "Web application security",
-   "planned": "2026-11-14",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-7",
-   "track": "aws-labs",
-   "name": "Server hardening",
-   "planned": "2026-11-15",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-8",
-   "track": "aws-labs",
-   "name": "Cloud security",
-   "planned": "2026-11-16",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-9",
-   "track": "aws-labs",
-   "name": "Incident response and threat hunting",
-   "planned": "2026-11-17",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-10",
-   "track": "aws-labs",
-   "name": "Security scripting",
-   "planned": "2026-11-18",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-11",
-   "track": "aws-labs",
-   "name": "Golden image pipeline",
-   "planned": "2026-11-19",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-12",
-   "track": "aws-labs",
-   "name": "Container scan and promotion",
-   "planned": "2026-11-21",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-13",
-   "track": "aws-labs",
-   "name": "Terraform module library",
-   "planned": "2026-11-22",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-14",
-   "track": "aws-labs",
-   "name": "GitOps on AKS",
-   "planned": "2026-11-23",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-15",
-   "track": "aws-labs",
-   "name": "Ansible hardening baseline",
-   "planned": "2026-11-24",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-16",
-   "track": "aws-labs",
-   "name": "Helm on AKS",
-   "planned": "2026-11-25",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-17",
-   "track": "aws-labs",
-   "name": "Data platform: architecture and plan",
-   "planned": "2026-11-26",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-18",
-   "track": "aws-labs",
-   "name": "Data platform: foundation",
-   "planned": "2026-11-28",
-   "built": null,
-   "video": "planned",
-   "posts": "planned",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-19",
-   "track": "aws-labs",
-   "name": "Data platform: ingestion",
-   "planned": "2026-11-29",
-   "built": null,
-   "video": "skip",
-   "posts": "skip",
-   "current": false,
-   "doc": "planned"
-  },
-  {
-   "id": "aws-labs-20",
-   "track": "aws-labs",
-   "name": "Data platform: orchestration",
    "planned": "2026-11-30",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-19"
   },
   {
-   "id": "aws-labs-21",
-   "track": "aws-labs",
-   "name": "Data platform: querying",
+   "id": "gcp-labs-18",
+   "track": "gcp-labs",
+   "name": "Data platform: foundation",
    "planned": "2026-12-01",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-21"
   },
   {
-   "id": "aws-labs-22",
-   "track": "aws-labs",
-   "name": "Data platform: AI",
+   "id": "gcp-labs-19",
+   "track": "gcp-labs",
+   "name": "Data platform: ingestion",
    "planned": "2026-12-02",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-22"
   },
   {
-   "id": "aws-labs-23",
-   "track": "aws-labs",
-   "name": "Data platform: observability",
+   "id": "gcp-labs-20",
+   "track": "gcp-labs",
+   "name": "Data platform: orchestration",
    "planned": "2026-12-03",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-23"
   },
   {
-   "id": "aws-labs-24",
-   "track": "aws-labs",
-   "name": "Inventory tracker",
+   "id": "gcp-labs-21",
+   "track": "gcp-labs",
+   "name": "Data platform: querying",
    "planned": "2026-12-05",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-24"
   },
   {
-   "id": "aws-labs-25",
-   "track": "aws-labs",
-   "name": "Regulated landing zone",
+   "id": "gcp-labs-22",
+   "track": "gcp-labs",
+   "name": "Data platform: AI",
    "planned": "2026-12-06",
    "built": null,
    "video": "skip",
    "posts": "skip",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-25"
   },
   {
-   "id": "ticketing-0",
-   "track": "ticketing",
-   "name": "Landing zone B design (after landing zone A)",
-   "planned": "2026-11-23",
+   "id": "gcp-labs-23",
+   "track": "gcp-labs",
+   "name": "Data platform: observability",
+   "planned": "2026-12-07",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-26"
   },
   {
-   "id": "ticketing-1",
-   "track": "ticketing",
-   "name": "Azure version (v1)",
+   "id": "gcp-labs-24",
+   "track": "gcp-labs",
+   "name": "Inventory tracker",
+   "planned": "2026-12-08",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-28"
+  },
+  {
+   "id": "gcp-labs-25",
+   "track": "gcp-labs",
+   "name": "Regulated landing zone",
+   "planned": "2026-12-09",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-29"
+  },
+  {
+   "id": "aws-projects-1",
+   "track": "aws-labs",
+   "name": "Project 1: Static website",
+   "planned": "2026-12-02",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-10-31"
+  },
+  {
+   "id": "aws-projects-2",
+   "track": "aws-labs",
+   "name": "Project 2: Two-tier network",
+   "planned": "2026-12-03",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-01"
+  },
+  {
+   "id": "aws-projects-3",
+   "track": "aws-labs",
+   "name": "Project 3: SQL and secrets",
    "planned": "2026-12-05",
    "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-02"
+  },
+  {
+   "id": "aws-projects-4",
+   "track": "aws-labs",
+   "name": "Project 4: Terraform IaC",
+   "planned": "2026-12-06",
+   "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-03"
   },
   {
-   "id": "ticketing-2",
-   "track": "ticketing",
-   "name": "GCP version (v2)",
+   "id": "aws-projects-5",
+   "track": "aws-labs",
+   "name": "Project 5: Governance controls",
+   "planned": "2026-12-07",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-04"
+  },
+  {
+   "id": "aws-projects-6",
+   "track": "aws-labs",
+   "name": "Project 7: Terraform pipeline",
+   "planned": "2026-12-08",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-05"
+  },
+  {
+   "id": "aws-projects-7",
+   "track": "aws-labs",
+   "name": "Project 6: Migration (GCP into AWS)",
+   "planned": "2026-12-09",
+   "built": null,
+   "video": "skip",
+   "posts": "planned",
+   "doc": "planned",
+   "current": false,
+   "originalPlanned": "2026-11-07"
+  },
+  {
+   "id": "aws-labs-1",
+   "track": "aws-labs",
+   "name": "Cost visibility dashboard",
+   "planned": "2026-12-10",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-08"
+  },
+  {
+   "id": "aws-labs-2",
+   "track": "aws-labs",
+   "name": "Backup system",
+   "planned": "2026-12-10",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-09"
+  },
+  {
+   "id": "aws-labs-3",
+   "track": "aws-labs",
+   "name": "Uptime monitor",
+   "planned": "2026-12-12",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-10"
+  },
+  {
+   "id": "aws-labs-4",
+   "track": "aws-labs",
+   "name": "Network security and traffic analysis",
+   "planned": "2026-12-12",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-11"
+  },
+  {
+   "id": "aws-labs-5",
+   "track": "aws-labs",
+   "name": "Penetration testing",
+   "planned": "2026-12-13",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-12"
+  },
+  {
+   "id": "aws-labs-6",
+   "track": "aws-labs",
+   "name": "Web application security",
+   "planned": "2026-12-13",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-14"
+  },
+  {
+   "id": "aws-labs-7",
+   "track": "aws-labs",
+   "name": "Server hardening",
+   "planned": "2026-12-14",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-15"
+  },
+  {
+   "id": "aws-labs-8",
+   "track": "aws-labs",
+   "name": "Cloud security",
+   "planned": "2026-12-14",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-16"
+  },
+  {
+   "id": "aws-labs-9",
+   "track": "aws-labs",
+   "name": "Incident response and threat hunting",
+   "planned": "2026-12-15",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-17"
+  },
+  {
+   "id": "aws-labs-10",
+   "track": "aws-labs",
+   "name": "Security scripting",
+   "planned": "2026-12-15",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-18"
+  },
+  {
+   "id": "aws-labs-11",
+   "track": "aws-labs",
+   "name": "Golden image pipeline",
+   "planned": "2026-12-16",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-19"
+  },
+  {
+   "id": "aws-labs-12",
+   "track": "aws-labs",
+   "name": "Container scan and promotion",
+   "planned": "2026-12-16",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-21"
+  },
+  {
+   "id": "aws-labs-13",
+   "track": "aws-labs",
+   "name": "Terraform module library",
+   "planned": "2026-12-17",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-22"
+  },
+  {
+   "id": "aws-labs-14",
+   "track": "aws-labs",
+   "name": "GitOps on AKS",
+   "planned": "2026-12-17",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-23"
+  },
+  {
+   "id": "aws-labs-15",
+   "track": "aws-labs",
+   "name": "Ansible hardening baseline",
+   "planned": "2026-12-19",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-24"
+  },
+  {
+   "id": "aws-labs-16",
+   "track": "aws-labs",
+   "name": "Helm on AKS",
    "planned": "2026-12-19",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2026-11-25"
+  },
+  {
+   "id": "aws-labs-17",
+   "track": "aws-labs",
+   "name": "Data platform: architecture and plan",
+   "planned": "2026-12-20",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-26"
+  },
+  {
+   "id": "aws-labs-18",
+   "track": "aws-labs",
+   "name": "Data platform: foundation",
+   "planned": "2026-12-20",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-28"
+  },
+  {
+   "id": "aws-labs-19",
+   "track": "aws-labs",
+   "name": "Data platform: ingestion",
+   "planned": "2026-12-21",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-29"
+  },
+  {
+   "id": "aws-labs-20",
+   "track": "aws-labs",
+   "name": "Data platform: orchestration",
+   "planned": "2026-12-21",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-30"
+  },
+  {
+   "id": "aws-labs-21",
+   "track": "aws-labs",
+   "name": "Data platform: querying",
+   "planned": "2026-12-22",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-12-01"
+  },
+  {
+   "id": "aws-labs-22",
+   "track": "aws-labs",
+   "name": "Data platform: AI",
+   "planned": "2026-12-22",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-12-02"
+  },
+  {
+   "id": "aws-labs-23",
+   "track": "aws-labs",
+   "name": "Data platform: observability",
+   "planned": "2026-12-23",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-12-03"
+  },
+  {
+   "id": "aws-labs-24",
+   "track": "aws-labs",
+   "name": "Inventory tracker",
+   "planned": "2026-12-23",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-12-05"
+  },
+  {
+   "id": "aws-labs-25",
+   "track": "aws-labs",
+   "name": "Regulated landing zone",
+   "planned": "2026-12-24",
+   "built": null,
+   "video": "skip",
+   "posts": "skip",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-12-06"
+  },
+  {
+   "id": "ticketing-0",
+   "track": "ticketing",
+   "name": "Landing zone B design (after landing zone A)",
+   "planned": "2026-12-26",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-11-23"
+  },
+  {
+   "id": "ticketing-1",
+   "track": "ticketing",
+   "name": "Azure version (v1)",
+   "planned": "2027-01-09",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-12-05"
+  },
+  {
+   "id": "ticketing-2",
+   "track": "ticketing",
+   "name": "GCP version (v2)",
+   "planned": "2027-01-23",
+   "built": null,
+   "video": "planned",
+   "posts": "planned",
+   "current": false,
+   "doc": "planned",
+   "originalPlanned": "2026-12-19"
   },
   {
    "id": "ticketing-3",
    "track": "ticketing",
    "name": "AWS version (v3)",
-   "planned": "2027-01-02",
+   "planned": "2027-02-06",
    "built": null,
    "video": "planned",
    "posts": "planned",
    "current": false,
-   "doc": "planned"
+   "doc": "planned",
+   "originalPlanned": "2027-01-02"
   }
  ],
  "baselineByTrack": {}
