@@ -124,12 +124,13 @@
    "built": "2026-10-26",
    "video": "2026-11-26",
    "posts": "planned",
-   "current": true,
-   "doc": "planned",
+   "current": false,
+   "doc": "2026-11-26",
    "catalog": true,
    "n": 7,
    "links": {
-    "github": "https://github.com/zsociety47/azure-terraform-pipeline-poc"
+    "github": "https://github.com/zsociety47/azure-terraform-pipeline-poc",
+    "guide": "https://docs.google.com/document/d/12Rs36mgp_ZiKMJxILuXSEPo83b6BjKpws9r-W7h1WaY/edit"
    },
    "blurb": "A pull request plans a Terraform change, and only the main branch can apply it, with no Azure password in GitHub.",
    "originalPlanned": "2026-10-23"
