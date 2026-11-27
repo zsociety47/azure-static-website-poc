@@ -6,9 +6,9 @@
   "built": 1
  },
  "tracks": {
-  "az-labs": "Azure labs",
-  "gcp-labs": "GCP labs",
-  "aws-labs": "AWS labs",
+  "az-labs": "Azure",
+  "gcp-labs": "Google Cloud",
+  "aws-labs": "Amazon Web Services",
   "ticketing": "Ticketing platform"
  },
  "updated": "2026-11-26",

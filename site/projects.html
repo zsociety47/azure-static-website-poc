@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeon Stewart | Azure projects</title>
-    <meta name="description" content="The Azure proofs of concept, with a link for every finished piece: GitHub, walkthrough video, click-through guide, LinkedIn, and the live site when there is one.">
+    <title>Zeon Stewart | Cloud projects</title>
+    <meta name="description" content="Azure, Google Cloud, and Amazon Web Services proofs of concept, with a link for every finished piece: GitHub, walkthrough video, click-through guide, LinkedIn, and the live site when there is one.">
     <style>
         :root {
             --blue: #0078d4;
@@ -51,7 +51,11 @@
         .project-card {
             border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; background: #fff;
         }
-        .project-card h3 { margin: 0 0 4px; font-size: 1.05rem; }
+        .project-card h3 { margin: 0 0 4px; font-size: 1.05rem; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+        .badge.cloud { font-weight: 600; }
+        .badge.cloud.az-labs { color: #fff; background: #0078d4; border-color: #0078d4; }
+        .badge.cloud.gcp-labs { color: #fff; background: #1a73e8; border-color: #1a73e8; }
+        .badge.cloud.aws-labs { color: #1b2733; background: #ff9900; border-color: #e88b00; }
         .blurb { font-size: 0.9rem; color: var(--muted); margin: 0 0 10px; }
         .badges { display: inline-flex; gap: 4px; flex-wrap: wrap; }
         .badge {
@@ -81,16 +85,15 @@
 <body>
     <main class="card">
         <header>
-            <h1>Azure projects</h1>
+            <h1>Cloud projects</h1>
             <p class="subtitle">Built by Zeon Stewart</p>
-            <p class="note">Each row is one proof of concept. A finished piece has a link: GitHub for the code, Loom for the walkthrough, the Google Doc for the click-through guide, LinkedIn when those posts are live, and the public site when there is one.</p>
+            <p class="note">Each row is one proof of concept, labelled Azure, Google Cloud, or Amazon Web Services. A finished piece has a link: GitHub for the code, Loom for the walkthrough, the Google Doc for the click-through guide, LinkedIn when those posts are live, and the public site when there is one.</p>
             <a class="btn" href="index.html">Back to the tracker</a>
         </header>
 
         <div id="error" role="alert">The project list could not load. Refresh, or see the repos on GitHub.</div>
 
-        <h2>The seven Azure builds</h2>
-        <div class="projects" id="catalog"></div>
+        <div id="catalog"></div>
 
         <p class="fineprint">Guides open as Google Docs. The public copy of every click is also in that project's GitHub README. Data updated <span id="updated">–</span>.</p>
     </main>
@@ -101,6 +104,24 @@
         function fmtY(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }); }
         function el(id) { return document.getElementById(id); }
         function isDone(v) { return v && v !== 'planned' && v !== 'skip'; }
+
+        var CLOUD = {
+            'az-labs': 'Azure',
+            'gcp-labs': 'Google Cloud',
+            'aws-labs': 'Amazon Web Services'
+        };
+        var CLOUD_HEADING = {
+            'az-labs': 'Azure projects',
+            'gcp-labs': 'Google Cloud projects',
+            'aws-labs': 'Amazon Web Services projects'
+        };
+
+        function cloudBadge(track) {
+            var b = document.createElement('span');
+            b.className = 'badge cloud ' + track;
+            b.textContent = CLOUD[track] || track;
+            return b;
+        }
 
         fetch('progress.json', { cache: 'no-cache' })
             .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -135,13 +156,21 @@
 
         function render(data) {
             var box = el('catalog');
-            var list = data.items.filter(function (i) { return i.catalog; }).sort(function (a, b) { return (a.n || 0) - (b.n || 0); });
+            ['az-labs', 'gcp-labs', 'aws-labs'].forEach(function (track) {
+            var list = data.items.filter(function (i) { return i.catalog && i.track === track; }).sort(function (a, b) { return (a.n || 0) - (b.n || 0); });
+            if (!list.length) return;
+            var heading = document.createElement('h2');
+            heading.textContent = CLOUD_HEADING[track];
+            box.appendChild(heading);
+            var grid = document.createElement('div');
+            grid.className = 'projects';
             list.forEach(function (i) {
                 var L = i.links || {};
                 var card = document.createElement('article');
                 card.className = 'project-card';
                 var h = document.createElement('h3');
-                h.textContent = i.name;
+                h.appendChild(cloudBadge(i.track));
+                h.appendChild(document.createTextNode(i.name));
                 card.appendChild(h);
                 if (i.blurb) {
                     var p = document.createElement('p');
@@ -165,7 +194,9 @@
                 chips.appendChild(chip('LinkedIn', isDone(i.posts) ? L.linkedin : ''));
                 if (L.live) chips.appendChild(chip('Live site', L.live));
                 card.appendChild(chips);
-                box.appendChild(card);
+                grid.appendChild(card);
+            });
+            box.appendChild(grid);
             });
             el('updated').textContent = fmtY(parse(data.updated));
         }

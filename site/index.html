@@ -89,7 +89,13 @@
         .swatch.actual { border-color: var(--actual); }
 
         .bars { display: grid; gap: 12px; }
-        .bar-row { display: grid; grid-template-columns: 130px 1fr 70px; gap: 12px; align-items: center; font-size: 0.9rem; }
+        .bar-row { display: grid; grid-template-columns: 170px 1fr 70px; gap: 12px; align-items: center; font-size: 0.9rem; }
+        .badge.cloud { font-weight: 600; margin-right: 6px; margin-left: 0; }
+        .badge.cloud.az-labs { color: #fff; background: #0078d4; border-color: #0078d4; }
+        .badge.cloud.gcp-labs { color: #fff; background: #1a73e8; border-color: #1a73e8; }
+        .badge.cloud.aws-labs { color: #1b2733; background: #ff9900; border-color: #e88b00; }
+        .badge.cloud.ticketing { color: #fff; background: #5b6570; border-color: #5b6570; }
+        .project-card h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
         .bar { height: 12px; background: #e9eef4; border-radius: 99px; overflow: hidden; }
         .bar-fill { height: 100%; background: var(--blue); border-radius: 99px; transition: width 0.4s ease; }
         .bar-count { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -180,9 +186,7 @@
         <h2>Recently built</h2>
         <ul class="list" id="recent"></ul>
 
-        <h2>Azure projects</h2>
-        <p class="note" style="text-align:left;margin:0 0 12px">The seven Azure proofs of concept. A green badge is a link. The longer list, with every artifact spelled out, is on the <a href="projects.html">projects page</a>.</p>
-        <div class="projects" id="catalog"></div>
+        <div id="catalog"></div>
 
         <hr>
 
@@ -349,6 +353,31 @@
 
         function isDone(v) { return v && v !== 'planned' && v !== 'skip'; }
 
+        var CLOUD = {
+            'az-labs': 'Azure',
+            'gcp-labs': 'Google Cloud',
+            'aws-labs': 'Amazon Web Services',
+            'ticketing': 'Ticketing'
+        };
+        var CLOUD_HEADING = {
+            'az-labs': 'Azure projects',
+            'gcp-labs': 'Google Cloud projects',
+            'aws-labs': 'Amazon Web Services projects'
+        };
+        var CLOUD_NOTE = {
+            'az-labs': 'Each card is one Azure proof of concept. A green badge is a link. The longer list is on the projects page.',
+            'gcp-labs': 'The same ideas rebuilt on Google Cloud.',
+            'aws-labs': 'The same ideas rebuilt on Amazon Web Services (AWS).'
+        };
+
+        function cloudBadge(track) {
+            var b = document.createElement('span');
+            b.className = 'badge cloud ' + track;
+            b.textContent = CLOUD[track] || track;
+            b.title = CLOUD[track] || track;
+            return b;
+        }
+
         function badge(label, v, href) {
             var done = isDone(v);
             var b = (href && done) ? document.createElement('a') : document.createElement('span');
@@ -377,7 +406,9 @@
         function li(item, trackName, tagText, tagClass, dateOf) {
             var li = document.createElement('li');
             var d = document.createElement('span'); d.className = 'date'; d.textContent = fmt(dateOf || item.planned);
-            var n = document.createElement('span'); n.textContent = trackName + ': ' + item.name;
+            var n = document.createElement('span');
+            n.appendChild(cloudBadge(item.track));
+            n.appendChild(document.createTextNode(item.name));
             n.appendChild(itemBadges(item));
             var t = document.createElement('span'); t.className = 'tag ' + tagClass; t.textContent = tagText;
             li.appendChild(d); li.appendChild(n); li.appendChild(t);
@@ -403,31 +434,57 @@
         function drawCatalog(items) {
             var box = el('catalog');
             if (!box) return;
-            var list = items.filter(function (i) { return i.catalog; }).sort(function (a, b) { return a.n - b.n; });
-            list.forEach(function (i) {
-                var card = document.createElement('article');
-                card.className = 'project-card';
-                var h = document.createElement('h3');
-                h.textContent = i.name;
-                card.appendChild(h);
-                if (i.blurb) {
-                    var p = document.createElement('p');
-                    p.className = 'blurb';
-                    p.textContent = i.blurb;
-                    card.appendChild(p);
+            ['az-labs', 'gcp-labs', 'aws-labs'].forEach(function (track) {
+                var list = items.filter(function (i) { return i.catalog && i.track === track; })
+                    .sort(function (a, b) { return a.n - b.n; });
+                if (!list.length) return;
+                var heading = document.createElement('h2');
+                heading.textContent = CLOUD_HEADING[track];
+                box.appendChild(heading);
+                var note = document.createElement('p');
+                note.className = 'note';
+                note.style.textAlign = 'left';
+                note.style.margin = '0 0 12px';
+                if (track === 'az-labs') {
+                    note.appendChild(document.createTextNode(CLOUD_NOTE[track] + ' '));
+                    var a = document.createElement('a');
+                    a.href = 'projects.html';
+                    a.textContent = 'Projects page';
+                    note.appendChild(a);
+                    note.appendChild(document.createTextNode('.'));
+                } else {
+                    note.textContent = CLOUD_NOTE[track];
                 }
-                card.appendChild(itemBadges(i));
-                var chips = document.createElement('div');
-                chips.className = 'chips';
-                chips.style.marginTop = '10px';
-                var L = i.links || {};
-                if (L.github) chips.appendChild(chip('GitHub', L.github));
-                if (isDone(i.video) && L.video) chips.appendChild(chip('Walkthrough', L.video));
-                if (isDone(i.doc) && L.guide) chips.appendChild(chip('Guide', L.guide));
-                if (isDone(i.posts) && L.linkedin) chips.appendChild(chip('LinkedIn', L.linkedin));
-                if (L.live) chips.appendChild(chip('Live site', L.live));
-                card.appendChild(chips);
-                box.appendChild(card);
+                box.appendChild(note);
+                var grid = document.createElement('div');
+                grid.className = 'projects';
+                list.forEach(function (i) {
+                    var card = document.createElement('article');
+                    card.className = 'project-card';
+                    var h = document.createElement('h3');
+                    h.appendChild(cloudBadge(i.track));
+                    h.appendChild(document.createTextNode(i.name));
+                    card.appendChild(h);
+                    if (i.blurb) {
+                        var p = document.createElement('p');
+                        p.className = 'blurb';
+                        p.textContent = i.blurb;
+                        card.appendChild(p);
+                    }
+                    card.appendChild(itemBadges(i));
+                    var chips = document.createElement('div');
+                    chips.className = 'chips';
+                    chips.style.marginTop = '10px';
+                    var L = i.links || {};
+                    if (L.github) chips.appendChild(chip('GitHub', L.github));
+                    if (isDone(i.video) && L.video) chips.appendChild(chip('Walkthrough', L.video));
+                    if (isDone(i.doc) && L.guide) chips.appendChild(chip('Guide', L.guide));
+                    if (isDone(i.posts) && L.linkedin) chips.appendChild(chip('LinkedIn', L.linkedin));
+                    if (L.live) chips.appendChild(chip('Live site', L.live));
+                    card.appendChild(chips);
+                    grid.appendChild(card);
+                });
+                box.appendChild(grid);
             });
         }
 
